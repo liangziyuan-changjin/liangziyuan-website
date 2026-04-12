@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Present Journal Preview</title>
+    <link rel="stylesheet" href="./present-journal.css" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: radial-gradient(circle at 12% 14%, #fff7e8 0%, transparent 30%),
+          radial-gradient(circle at 88% 10%, #e8f0ff 0%, transparent 36%),
+          linear-gradient(160deg, #f7f4ff 0%, #fefcf8 58%, #f2f6ff 100%);
+        color: #5b4a83;
+      }
+
+      .wrap {
+        width: min(1200px, 95vw);
+        margin: 24px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section id="present" class="present-journal" aria-label="现在的我灵感手帐">
+        <div class="present-grid present-grid-12">
+          <article class="present-card card-state drift-a" style="--dy: 16px">
+            <h3>我的状态</h3>
+            <p class="preline" id="copyState"></p>
+          </article>
+
+          <article class="present-card card-personality drift-b" style="--dy: -12px">
+            <h3>我的个性</h3>
+            <p class="preline" id="copyPersonality"></p>
+          </article>
+
+          <article class="present-card card-life drift-c" style="--dy: 24px">
+            <h3>我的生活</h3>
+            <p class="preline" id="copyLife"></p>
+          </article>
+
+          <section class="present-card polaroid-zone drift-d" style="--dy: 8px">
+            <h3>生活影像墙</h3>
+            <div class="polaroid-stack" id="polaroidStack" aria-label="拍立得照片堆"></div>
+            <div class="bubble-cloud" id="bubbleCloud" aria-label="浮动标签云"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const copy = {
+        state:
+          "白天在需求风暴里对线，晚上在情绪边缘蹦迪。\n我可以温柔，但今天真的不想当懂事大人。\n该扛的我会扛，不服憋着。",
+        personality:
+          "外表是奶香马卡龙，内核是冷萃冰美式。\n逻辑在线，脾气有棱角，爱美也爱赢。\n能把混乱理成路，也能把路走成舞台。",
+        life:
+          "我的续命公式：冷萃冰美式 + 奶茶续命 + 深夜散步。\n拍照、唱歌、city walk，都是我给灵魂充电的方式。\n如果今天有风和晚霞，我就原地复活。"
+      };
+
+      document.getElementById("copyState").textContent = copy.state;
+      document.getElementById("copyPersonality").textContent = copy.personality;
+      document.getElementById("copyLife").textContent = copy.life;
+
+      const presentTags = [
+        "逻辑在线",
+        "可甜可酷",
+        "不服憋着",
+        "city walk",
+        "冷萃冰美式",
+        "奶茶续命",
+        "情绪稳定输出",
+        "细节控",
+        "镜头感",
+        "灵感手帐",
+        "执行力",
+        "富士女孩"
+      ];
+
+      const stack = document.getElementById("polaroidStack");
+      for (let index = 0; index < 18; index += 1) {
+        const seq = String(index + 1).padStart(2, "0");
+        const src = `../assets/images/present/present-${seq}.jpg`;
+        const col = index % 6;
+        const row = Math.floor(index / 6);
+        const rotateBase = [-9, -5, 4, 8, -6, 6][col];
+        const x = col * 72 + (row % 2 === 0 ? 0 : 14);
+        const y = row * 94 + (col % 2 === 0 ? 0 : 10);
+        const rotate = rotateBase + row;
+
+        const figure = document.createElement("figure");
+        figure.className = "polaroid";
+        figure.style.setProperty("--x", `${x}px`);
+        figure.style.setProperty("--y", `${y}px`);
+        figure.style.setProperty("--r", `${rotate}deg`);
+        figure.style.setProperty("--z", String(index + 1));
+
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = `现在的我 ${index + 1}`;
+        img.loading = "lazy";
+        img.decoding = "async";
+        figure.appendChild(img);
+        stack.appendChild(figure);
+      }
+
+      const cloud = document.getElementById("bubbleCloud");
+      presentTags.forEach((tag, index) => {
+        const bubble = document.createElement("span");
+        bubble.className = `bubble bubble-${(index % 8) + 1}`;
+        bubble.textContent = tag;
+        cloud.appendChild(bubble);
+      });
+    </script>
+  </body>
+</html>

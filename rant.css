@@ -1,0 +1,150 @@
+:root {
+  --ink: #5a4c7f;
+  --bg1: #d8cff6;
+  --bg2: #c8d8fb;
+  --bg3: #f0e4fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Noto Sans SC", "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: var(--ink);
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(255, 251, 243, 0.62) 0%, rgba(255, 251, 243, 0) 40%),
+    radial-gradient(circle at 82% 12%, rgba(217, 235, 255, 0.5) 0%, rgba(217, 235, 255, 0) 40%),
+    linear-gradient(165deg, var(--bg1) 0%, var(--bg2) 36%, #d9c8f1 70%, var(--bg3) 100%);
+}
+
+.rant-page {
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: 26px 18px 40px;
+}
+
+.back-link {
+  text-decoration: none;
+  color: #675a8e;
+  font-weight: 600;
+}
+
+.rant-card,
+.rant-list-card {
+  margin-top: 14px;
+  background: rgba(255, 253, 248, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 12px 24px rgba(161, 152, 202, 0.24);
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+}
+
+h2 {
+  margin: 0 0 12px;
+}
+
+p {
+  margin-top: 0;
+  color: #6e6498;
+}
+
+.rant-form {
+  display: grid;
+  gap: 10px;
+}
+
+.rant-form input,
+.rant-form textarea {
+  width: 100%;
+  border: 1px solid rgba(181, 169, 215, 0.55);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #5c4f82;
+  padding: 10px 12px;
+  font: inherit;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  background: rgba(255, 248, 230, 0.88);
+  color: #685c90;
+  padding: 9px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.rant-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.rant-item {
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.84);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.rant-item p {
+  margin: 0;
+  color: #5d507f;
+}
+
+.rant-meta {
+  margin-bottom: 4px;
+  color: #8779ad;
+  font-size: 0.82rem;
+}
+
+.rant-delete {
+  margin-top: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  background: rgba(255, 249, 234, 0.86);
+  color: #796ca3;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.rant-empty {
+  color: #877bad;
+  font-size: 0.92rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: rgba(119, 106, 156, 0.92);
+  color: #fffef9;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.92rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

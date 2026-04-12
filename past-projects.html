@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>梁紫原 | 代表项目</title>
+    <meta name="description" content="梁紫原的代表项目页，自动读取 past.md 中的项目章节。" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./past-projects.css" />
+  </head>
+  <body>
+    <main class="project-page">
+      <a class="back-link" href="./index.html#past">返回过去的我</a>
+      <header class="project-header">
+        <p class="kicker">Past Projects</p>
+        <h1>代表项目</h1>
+        <p>内容自动读取自 <code>content/past.md</code> 的 <code>## 代表项目（可选）</code> 章节。</p>
+      </header>
+
+      <section class="project-list" id="projectList" aria-live="polite"></section>
+    </main>
+
+    <script src="./past-projects.js"></script>
+  </body>
+</html>

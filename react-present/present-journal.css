@@ -1,0 +1,198 @@
+.present-journal {
+  --glass: rgba(255, 255, 255, 0.4);
+  --ink: #5b4a83;
+  --ink-soft: #7a6ea3;
+  --stroke: rgba(255, 255, 255, 0.72);
+  --shadow: 0 14px 30px rgba(138, 123, 187, 0.22);
+  position: relative;
+  padding: clamp(22px, 3vw, 40px);
+}
+
+.present-grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.present-card {
+  background: var(--glass);
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  padding: 20px 22px;
+  color: var(--ink);
+  transform: translateY(var(--dy, 0));
+}
+
+.present-card h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.12rem, 1.9vw, 1.42rem);
+}
+
+.preline {
+  white-space: pre-line;
+  line-height: 1.8;
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.card-state {
+  grid-column: 1 / span 4;
+}
+
+.card-personality {
+  grid-column: 6 / span 4;
+}
+
+.card-life {
+  grid-column: 2 / span 4;
+}
+
+.polaroid-zone {
+  grid-column: 5 / -1;
+  min-height: 560px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.polaroid-zone h3 {
+  margin-bottom: 16px;
+}
+
+.polaroid-stack {
+  position: relative;
+  height: 420px;
+  margin-right: 16px;
+}
+
+.polaroid {
+  position: absolute;
+  left: var(--x, 0px);
+  top: var(--y, 0px);
+  z-index: var(--z, 1);
+  width: clamp(104px, 11vw, 156px);
+  background: #fff;
+  border: 10px solid #fff;
+  border-bottom-width: 26px;
+  box-shadow: 0 10px 24px rgba(85, 72, 128, 0.28);
+  transform: rotate(var(--r, 0deg));
+  transition: all 0.4s ease;
+  border-radius: 10px;
+}
+
+.polaroid img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+
+.polaroid-stack:hover .polaroid {
+  z-index: calc(100 - var(--z));
+  filter: saturate(0.96);
+}
+
+.polaroid-stack:hover .polaroid:hover {
+  transform: scale(1.1) rotate(0deg);
+  z-index: 100 !important;
+  filter: saturate(1.08);
+}
+
+.bubble-cloud {
+  position: absolute;
+  inset: 56px 16px 16px 16px;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  max-width: 170px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: #5f4f88;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(127, 111, 176, 0.18);
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  pointer-events: auto;
+}
+
+.bubble-1 {
+  top: 8%;
+  left: 6%;
+}
+
+.bubble-2 {
+  top: 14%;
+  right: 18%;
+}
+
+.bubble-3 {
+  top: 34%;
+  left: 44%;
+}
+
+.bubble-4 {
+  top: 42%;
+  right: 6%;
+}
+
+.bubble-5 {
+  top: 56%;
+  left: 10%;
+}
+
+.bubble-6 {
+  top: 62%;
+  right: 25%;
+}
+
+.bubble-7 {
+  bottom: 18%;
+  left: 38%;
+}
+
+.bubble-8 {
+  bottom: 10%;
+  right: 8%;
+}
+
+@media (max-width: 1100px) {
+  .card-state,
+  .card-personality,
+  .card-life,
+  .polaroid-zone {
+    grid-column: span 12;
+  }
+
+  .polaroid-zone {
+    min-height: 680px;
+  }
+}
+
+@media (max-width: 760px) {
+  .present-card {
+    border-radius: 26px;
+    padding: 16px;
+  }
+
+  .polaroid-stack {
+    height: 360px;
+  }
+
+  .bubble {
+    font-size: 0.72rem;
+  }
+}

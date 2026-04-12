@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#d8cff6" />
+  <title>梁紫原 | 为执念撒野的小公主</title>
+  <meta name="description" content="梁紫原的个人主页：过去、现在、未来与真实自我。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#mainContent">跳到正文</a>
+  <div class="noise-mask" aria-hidden="true"></div>
+  <div class="sky-dust" id="skyDust" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="logo" href="#home">liangziyuan.me</a>
+    <nav class="top-nav" aria-label="主导航">
+      <a href="#home" class="nav-link active">首页</a>
+      <a href="#past" class="nav-link">过去的我</a>
+      <a href="#present" class="nav-link">现在的我</a>
+      <a href="#future" class="nav-link">未来的我</a>
+      <a href="#easter-egg" class="nav-link">彩蛋</a>
+      <button class="nav-link nav-link-btn" id="resumeEntryBtn" type="button">看看我的简历吗</button>
+    </nav>
+    <div class="music-tools">
+      <button class="music-btn" id="musicBtn" type="button" aria-label="播放背景音乐">
+        ♫ BGM
+      </button>
+      <label class="track-switch" for="trackSelect">
+        <span>曲目</span>
+        <select id="trackSelect" aria-label="选择背景音乐">
+          <option value="./assets/music/清音 - 去有风的地方.mp3">去有风的地方</option>
+          <option value="./assets/music/很美味 - 不灵不灵.mp3">不灵不灵</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main id="mainContent">
+    <section class="panel panel-home" id="home">
+      <div class="home-clouds" aria-hidden="true">
+        <div class="home-cloud-track">
+          <p class="cloud-bubble">我是山野吹来的风，不被城市定义</p>
+          <p class="cloud-bubble">我是人间散漫的云，自有来去的路</p>
+          <p class="cloud-bubble">我是旷野里的风，只向自由奔赴</p>
+          <p class="cloud-bubble">我是山林间的雾，清醒又温柔</p>
+          <p class="cloud-bubble">我是晚风里的星，安静却有光</p>
+          <p class="cloud-bubble">我是山野吹来的风，不被城市定义</p>
+          <p class="cloud-bubble">我是人间散漫的云，自有来去的路</p>
+          <p class="cloud-bubble">我是旷野里的风，只向自由奔赴</p>
+          <p class="cloud-bubble">我是山林间的雾，清醒又温柔</p>
+          <p class="cloud-bubble">我是晚风里的星，安静却有光</p>
+        </div>
+      </div>
+      <div class="panel-content home-layout">
+        <div class="home-copy">
+          <p class="hero-title hero-highlight">世界忙着按部就班，我忙着在云端撒野</p>
+          <h1 class="name-main">我是「梁紫原」</h1>
+          <p class="self-intro mist-stagger" data-text="从一张白纸，长成了在产品世界里撒野的小公主" data-char-delay="0.14"></p>
+          <p class="narration">
+            我总是在逻辑与自由之间反复横跳，度过每个春夏秋冬。
+          </p>
+          <div class="opening-copy">
+            <p>成为产品经理是我年少的执念，追逐自由随性是我人生的底色。</p>
+            <p>这里是我的小世界，不卷、不装、不迎合，只做最鲜活的自己。</p>
+          </div>
+          <p class="chip-guidance">点任意标签，拆一张我的专属卡片</p>
+          <div class="chips">
+            <button class="chip-tag" type="button" data-tag="长今富豪集团 唯一继承人">长今富豪集团 唯一继承人</button>
+            <button class="chip-tag" type="button" data-tag="库里南车主预备役">库里南车主预备役</button>
+            <button class="chip-tag" type="button" data-tag="产品捣蛋鬼 × 未来女总裁">产品捣蛋鬼 × 未来女总裁</button>
+            <button class="chip-tag" type="button" data-tag="95 摩羯 INFJ">95 摩羯 INFJ</button>
+            <button class="chip-tag" type="button" data-tag="自由追光者">自由追光者</button>
+            <button class="chip-tag" type="button" data-tag="清醒小甜妹">清醒小甜妹</button>
+            <button class="chip-tag" type="button" data-tag="请我喝奶茶吗">请我喝奶茶吗</button>
+          </div>
+        </div>
+
+        <div class="home-visual">
+          <figure class="hero-poster portrait-poster reveal">
+            <img
+              id="heroMainImage"
+              class="hero-main-image"
+              src="./assets/images/home-hero/day-girl.jpg"
+              alt="我的奶茶大头照"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+            <figcaption>和奶茶并肩，今天也要元气满满。</figcaption>
+          </figure>
+          <div class="hero-mini-stack reveal" aria-label="首页小卡片">
+            <figure class="mini-card mini-card-1">
+              <img src="./assets/images/home-hero/naicha.png" alt="最喜欢粉色" loading="lazy" decoding="async" />
+            </figure>
+            <figure class="mini-card mini-card-2">
+              <img src="./assets/images/home-hero/night-couple.png" alt="温柔夜晚" loading="lazy" decoding="async" />
+            </figure>
+            <figure class="mini-card mini-card-3">
+              <img src="./assets/images/home-hero/微信图片_20260412120634_62_154.png" alt="做自己，最好看" loading="lazy"
+                decoding="async" />
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel panel-past" id="past">
+      <div class="panel-content">
+        <div class="past-heading-row reveal">
+          <h2>过去的我</h2>
+          <aside class="past-whispers" aria-label="过去的我开场白">
+            <p class="whisper-line">过去的我，是走在父母为我铺设道路上的乖乖女。</p>
+            <p class="whisper-line">“要努力，要优秀，要好好学习，要努力工作，要为国家社会做贡献。”</p>
+          </aside>
+        </div>
+
+        <section class="journey-showcase reveal" aria-label="过去的成长时间轴">
+          <h3>成长轨迹</h3>
+          <p class="journey-tip">从按部就班，到一步步走向独立的职业世界。</p>
+          <div class="journey-track" id="pastJourneyTrack"></div>
+          <p class="journey-maintain">内容维护文件：content/past-journey.json（可维护字段：yearMark / sideSkill / sideInsight / sideResult）</p>
+        </section>
+
+        <section class="past-project-entry reveal" aria-label="代表项目入口">
+          <h3>代表项目</h3>
+          <p>项目内容来自 <code>content/past.md</code> 的“<code>## 代表项目（可选）</code>”章节。</p>
+          <a class="project-entry-btn" href="./past-projects.html">想了解更多我的项目</a>
+        </section>
+      </div>
+    </section>
+
+    <div class="journey-cloud-overlay" id="journeyCloudOverlay" aria-hidden="true">
+      <div class="journey-cloud-modal" role="dialog" aria-modal="true" aria-labelledby="journeyCloudTitle">
+        <button class="journey-cloud-close" id="journeyCloudCloseBtn" type="button" aria-label="关闭">×</button>
+        <p class="journey-cloud-kicker">成长轨迹彩蛋</p>
+        <div class="journey-cloud-body">
+          <figure class="journey-cloud-visual">
+            <img
+              id="journeyCloudImage"
+              src="./assets/images/past-journey/growth.jpg"
+              alt="成长轨迹彩蛋配图"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <div class="journey-cloud-copy">
+            <h3 id="journeyCloudTitle">成长彩蛋</h3>
+            <p id="journeyCloudText">这里会显示阶段彩蛋文案。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="panel panel-present" id="present">
+      <div class="panel-content">
+        <div class="present-heading-row reveal">
+          <h2>现在的我</h2>
+          <aside class="present-whispers" aria-label="现在的我副文案">
+            <p class="whisper-line">甜酷、随性、保持呼吸感</p>
+            <p class="whisper-line">生活和工作，都按自己的节奏来</p>
+          </aside>
+        </div>
+
+        <div class="present-editorial reveal">
+          <div class="present-top-cards">
+            <article class="present-horizontal-card present-state-card">
+              <h3>我的状态</h3>
+              <p class="preline">白天在需求风暴里对线，晚上在情绪边缘蹦迪。
+我可以温柔，但今天真的不想当懂事大人。
+该扛的我会扛，不服憋着。</p>
+            </article>
+
+            <article class="present-horizontal-card present-personality-card">
+              <h3>我的个性</h3>
+              <p class="preline">外表是奶香马卡龙，内核是冷萃冰美式。
+逻辑在线，脾气有棱角，爱美也爱赢。
+能把混乱理成路，也能把路走成舞台。</p>
+            </article>
+          </div>
+
+          <section class="present-carousel-shell" aria-label="现在的我照片长廊">
+            <div class="present-carousel-row row-top" id="presentRowTop"></div>
+            <div class="present-carousel-row row-bottom" id="presentRowBottom"></div>
+          </section>
+
+          <article class="present-life-social">
+            <div class="present-life-copy">
+              <h3>我的生活</h3>
+              <p class="preline">我的续命公式：冷萃冰美式 + 奶茶续命 + 深夜散步。
+拍照、唱歌、city walk，都是我给灵魂充电的方式。
+如果今天有风和晚霞，我就原地复活。</p>
+            </div>
+
+            <div class="social-phone-grid">
+              <a
+                class="social-phone-card"
+                href="https://www.xiaohongshu.com/user/profile/5c3ee5b300000000070331f2?xsec_token=YBL5V_vtdb7wYhTP4s2x3KljfpQWymggt5GHA_gTPi0RE=&xsec_source=app_share&xhsshare=WeixinSession&appuid=5c3ee5b300000000070331f2&apptime=1775926916&share_id=6ffb52eeea674e89b8cbd5c676adbf98"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="打开小红书主页"
+              >
+                <span class="phone-badge">小红书</span>
+                <figure class="phone-screen">
+                  <img
+                    class="social-screen-img"
+                    src="./assets/images/present/social-xiaohongshu.jpg"
+                    data-fallback="./assets/images/present/present-11.jpg"
+                    alt="小红书主页截图"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <span class="phone-tip">点击查看主页</span>
+              </a>
+
+              <a
+                class="social-phone-card"
+                href="https://v.douyin.com/-A0GbFCsDwg/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="打开抖音主页"
+              >
+                <span class="phone-badge">抖音</span>
+                <figure class="phone-screen">
+                  <img
+                    class="social-screen-img"
+                    src="./assets/images/present/social-douyin.jpg"
+                    data-fallback="./assets/images/present/present-12.jpg"
+                    alt="抖音主页截图"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <span class="phone-tip">点击查看主页</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel panel-future" id="future">
+      <div class="panel-content">
+        <div class="future-heading-row reveal">
+          <h2>未来的我</h2>
+          <aside class="future-whispers" aria-label="未来的我副文案">
+            <p class="whisper-line">我不想上班了</p>
+            <p class="whisper-line">我想过简单、自由、快乐、轻松的生活</p>
+          </aside>
+        </div>
+        <section class="future-stage reveal" aria-label="未来主视觉">
+          <figure class="future-hero">
+            <img src="./assets/images/future/weilai.png" alt="未来的我，拥抱自由" loading="lazy" decoding="async" />
+            <figcaption>拥抱自由</figcaption>
+
+            <div class="future-petal-layer" aria-hidden="true">
+              <span class="petal sakura" style="--x: 4%; --dur: 11.4s; --delay: -2.2s; --drift: 18px;"></span>
+              <span class="petal violet" style="--x: 12%; --dur: 13s; --delay: -8s; --drift: 26px;"></span>
+              <span class="petal sakura" style="--x: 20%; --dur: 12.2s; --delay: -4.8s; --drift: 22px;"></span>
+              <span class="petal violet" style="--x: 27%; --dur: 14.3s; --delay: -6.4s; --drift: 34px;"></span>
+              <span class="petal sakura" style="--x: 35%; --dur: 10.8s; --delay: -1.6s; --drift: 18px;"></span>
+              <span class="petal violet" style="--x: 44%; --dur: 12.8s; --delay: -7.8s; --drift: 28px;"></span>
+              <span class="petal sakura" style="--x: 52%; --dur: 11.6s; --delay: -3.6s; --drift: 24px;"></span>
+              <span class="petal violet" style="--x: 61%; --dur: 13.8s; --delay: -9.2s; --drift: 30px;"></span>
+              <span class="petal sakura" style="--x: 69%; --dur: 12s; --delay: -5.4s; --drift: 22px;"></span>
+              <span class="petal violet" style="--x: 77%; --dur: 14.8s; --delay: -10s; --drift: 36px;"></span>
+              <span class="petal sakura" style="--x: 85%; --dur: 11.2s; --delay: -2.8s; --drift: 20px;"></span>
+              <span class="petal violet" style="--x: 93%; --dur: 13.4s; --delay: -7.1s; --drift: 27px;"></span>
+            </div>
+
+            <div class="future-danmu-layer" aria-label="未来关键词弹幕">
+              <span class="future-danmu" style="--x: 4%; --dur: 13.4s; --delay: -1.8s; --drift: 20px;">睡到自然醒</span>
+              <span class="future-danmu" style="--x: 9%; --dur: 15.6s; --delay: -7.2s; --drift: 34px;">窗外有树影</span>
+              <span class="future-danmu" style="--x: 13%; --dur: 12.8s; --delay: -4.6s; --drift: 18px;">桌上有猫咪</span>
+              <span class="future-danmu" style="--x: 18%; --dur: 16.2s; --delay: -9.7s; --drift: 30px;">手边有咖啡香</span>
+              <span class="future-danmu" style="--x: 23%; --dur: 14.2s; --delay: -2.3s; --drift: 24px;">不用挤地铁</span>
+              <span class="future-danmu" style="--x: 28%; --dur: 17.3s; --delay: -11.4s; --drift: 28px;">不必打卡</span>
+              <span class="future-danmu" style="--x: 33%; --dur: 13.6s; --delay: -5.8s; --drift: 16px;">去山里住一阵</span>
+              <span class="future-danmu" style="--x: 37%; --dur: 15.9s; --delay: -8.3s; --drift: 26px;">去海边吹一整天</span>
+              <span class="future-danmu" style="--x: 42%; --dur: 12.6s; --delay: -1.1s; --drift: 22px;">说走就走</span>
+              <span class="future-danmu" style="--x: 46%; --dur: 16.8s; --delay: -10.2s; --drift: 32px;">轻装上路</span>
+              <span class="future-danmu" style="--x: 51%; --dur: 14.7s; --delay: -3.7s; --drift: 20px;">把灵感写满本子</span>
+              <span class="future-danmu" style="--x: 55%; --dur: 17.1s; --delay: -12.5s; --drift: 28px;">做真正喜欢的产品</span>
+              <span class="future-danmu" style="--x: 59%; --dur: 13.2s; --delay: -6.1s; --drift: 18px;">保留少女心</span>
+              <span class="future-danmu" style="--x: 63%; --dur: 15.4s; --delay: -8.9s; --drift: 25px;">保持职业精进</span>
+              <span class="future-danmu" style="--x: 67%; --dur: 12.9s; --delay: -2.9s; --drift: 20px;">工作也要有呼吸</span>
+              <span class="future-danmu" style="--x: 71%; --dur: 16.5s; --delay: -11.1s; --drift: 30px;">每天都能看晚霞</span>
+              <span class="future-danmu" style="--x: 75%; --dur: 14.1s; --delay: -4.2s; --drift: 21px;">听鸟鸣看云走</span>
+              <span class="future-danmu" style="--x: 79%; --dur: 17.7s; --delay: -13.3s; --drift: 34px;">和喜欢的人聊到夜里</span>
+              <span class="future-danmu" style="--x: 83%; --dur: 13.8s; --delay: -5.1s; --drift: 19px;">去陌生城市散步</span>
+              <span class="future-danmu" style="--x: 87%; --dur: 16.1s; --delay: -9.6s; --drift: 27px;">练歌到凌晨</span>
+              <span class="future-danmu" style="--x: 91%; --dur: 12.7s; --delay: -1.6s; --drift: 15px;">写下新的小目标</span>
+              <span class="future-danmu" style="--x: 95%; --dur: 15.2s; --delay: -7.9s; --drift: 24px;">把生活过成作品</span>
+              <span class="future-danmu" style="--x: 14%; --dur: 18.1s; --delay: -14.6s; --drift: 31px;">学习但不内耗</span>
+              <span class="future-danmu" style="--x: 30%; --dur: 13.9s; --delay: -6.7s; --drift: 20px;">勇敢但不逞强</span>
+              <span class="future-danmu" style="--x: 48%; --dur: 16.7s; --delay: -12.1s; --drift: 29px;">自由且笃定</span>
+              <span class="future-danmu" style="--x: 64%; --dur: 14.5s; --delay: -4.9s; --drift: 23px;">对世界保持好奇</span>
+              <span class="future-danmu" style="--x: 82%; --dur: 17.4s; --delay: -15.2s; --drift: 33px;">温柔也有锋芒</span>
+              <span class="future-danmu" style="--x: 93%; --dur: 15s; --delay: -8.7s; --drift: 26px;">成为更满足的自己</span>
+            </div>
+          </figure>
+        </section>
+      </div>
+    </section>
+
+    <section class="panel panel-easter" id="easter-egg">
+      <div class="panel-content">
+        <section class="easter-playground reveal" aria-label="彩蛋小游戏中心">
+          <header class="easter-head">
+            <p class="easter-kicker">🌙 星月游乐场 ✦</p>
+            <h2>彩蛋小游戏</h2>
+            <p class="easter-mantra">放轻松，一切都会变好，不开心的时候就来找我玩吧～</p>
+          </header>
+
+          <div class="easter-layout">
+            <section class="game-zone game-zone-unlock reveal" aria-label="解锁小游戏">
+              <h3>解锁小游戏</h3>
+              <p class="section-tagline">先点月亮 5 次，再试试键盘指令 <code>IMSB</code>，看看会发生什么。</p>
+              <button id="moonBtn" class="moon-btn" type="button">🌙 点我</button>
+              <div class="easter-content" id="easterContent" aria-live="polite">
+                <p>「我会认真工作，也会认真生活。我的目标不是成为最标准的人，而是成为最完整的自己。」</p>
+              </div>
+
+              <p class="easter-tip">键盘指令：IMSB</p>
+              <div class="easter-content easter-code" id="easterCode" aria-live="polite">
+                <p>独立地思考，顽皮地创造，傲娇地生活，在平衡中与世界和解。</p>
+              </div>
+            </section>
+
+            <section class="blindbox-zone game-zone reveal" aria-label="盲盒抽卡">
+              <h3>盲盒抽卡</h3>
+              <p>随机抽一张，看看你会拆到哪个隐藏片段。</p>
+              <div class="blindbox-grid" id="blindboxGrid">
+                <button class="blindbox-card" type="button"><span class="box-front">盲盒 01</span><span
+                    class="box-back"></span></button>
+                <button class="blindbox-card" type="button"><span class="box-front">盲盒 02</span><span
+                    class="box-back"></span></button>
+                <button class="blindbox-card" type="button"><span class="box-front">盲盒 03</span><span
+                    class="box-back"></span></button>
+                <button class="blindbox-card" type="button"><span class="box-front">盲盒 04</span><span
+                    class="box-back"></span></button>
+                <button class="blindbox-card" type="button"><span class="box-front">盲盒 05</span><span
+                    class="box-back"></span></button>
+                <button class="blindbox-card" type="button"><span class="box-front">盲盒 06</span><span
+                    class="box-back"></span></button>
+              </div>
+            </section>
+
+            <section class="rant-zone game-zone reveal" aria-label="留言吐槽池">
+              <h3>留言吐槽池（本地版）</h3>
+              <p>把烦恼丢进池子，轻一点、松一点。内容仅保存在你自己的浏览器。</p>
+              <form id="rantForm" class="rant-form">
+                <input id="rantAlias" type="text" maxlength="20" placeholder="你的代号（可选）" />
+                <textarea id="rantText" maxlength="240" rows="3" placeholder="把今天想吐槽的话写下来..." required></textarea>
+                <div class="rant-actions">
+                  <button type="submit">丢进吐槽池</button>
+                  <button type="button" id="clearRantsBtn">清空本地吐槽</button>
+                </div>
+              </form>
+              <ul id="rantList" class="rant-list"></ul>
+            </section>
+          </div>
+
+          <p class="easter-goodnight">⭐ 晚安，玛卡巴卡。 🌙</p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p>© 2026 梁紫原 · liangziyuan.me</p>
+      <p>联系方式：<a href="mailto:lzyliangzi@gmail.com">lzyliangzi@gmail.com</a> · 谢谢你来我的小世界。</p>
+    </div>
+  </footer>
+
+  <div class="tag-overlay" id="tagOverlay" aria-hidden="true">
+    <div class="tag-modal" role="dialog" aria-modal="true" aria-labelledby="tagCardTitle">
+      <button class="tag-close" id="tagCloseBtn" type="button" aria-label="关闭">×</button>
+      <p class="tag-kicker">标签故事卡</p>
+      <article class="tag-card" id="tagCard">
+        <img id="tagCardImage" src="./assets/images/home-hero/day-girl.jpg" alt="标签卡片配图" loading="lazy"
+          decoding="async" />
+        <div class="tag-copy">
+          <h3 id="tagCardTitle">标签标题</h3>
+          <p id="tagCardDesc">标签介绍加载中...</p>
+        </div>
+      </article>
+      <p class="tag-maintain">内容维护文件：content/tag-cards.json</p>
+    </div>
+  </div>
+
+  <div class="resume-overlay" id="resumeOverlay" aria-hidden="true">
+    <div class="resume-modal" role="dialog" aria-modal="true" aria-labelledby="resumeTitle">
+      <button class="resume-close" id="resumeCloseBtn" type="button" aria-label="关闭">×</button>
+      <p class="resume-kicker">正在尝试跳转简历...</p>
+      <div class="resume-progress"><span id="resumeBar"></span></div>
+      <p class="resume-loading" id="resumeLoadingText">加载中 0%</p>
+
+      <div class="resume-result" id="resumeResult">
+        <h3 id="resumeTitle">不好意思呢，找工作的简历暂时没有准备好～</h3>
+        <p>我现在还在e签宝当产品经理哦，等我早日赎身，就能与你相爱～</p>
+        <div class="resume-actions">
+          <a id="resumeBackBtn" href="#home">回到主页</a>
+          <a href="#past">看看过去的我</a>
+          <a href="#present">看看现在的我</a>
+          <a href="#future">看看未来的我</a>
+          <a href="#easter-egg">好失望，我要去吐槽</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cat-friend cat-friend-left" id="catFriendLeft" data-cat-toast="呆呆：我在左边蹦蹦跳跳陪你逛。" aria-live="polite">
+    <div class="cat-friend-inner">
+      <img src="./assets/images/home-cat/daidaizuobian.png" alt="左侧呆呆猫，在线陪逛中" loading="lazy" decoding="async" />
+    </div>
+    <button class="cat-note" type="button">呆呆在线陪逛中</button>
+  </div>
+
+  <div class="cat-friend cat-friend-right" id="catFriendRight" data-cat-toast="呆呆猫小助理：点点我，摸摸我。" aria-live="polite">
+    <div class="cat-friend-inner">
+      <img src="./assets/images/home-cat/daidaiyoubian.png" alt="右侧呆呆猫小助理，躺在猫窝里" loading="lazy" decoding="async" />
+    </div>
+    <div class="cat-sleep-zzz" aria-hidden="true">
+      <span>Z</span>
+      <span>Z</span>
+      <span>Z</span>
+    </div>
+    <button class="cat-note cat-note-right" type="button">
+      <span>呆呆猫小助理</span>
+      <span>点点我，摸摸我</span>
+    </button>
+  </div>
+
+  <audio id="bgm" preload="metadata" autoplay loop>
+    <source src="./assets/music/清音 - 去有风的地方.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="cat-chat-pop" id="catChatPop" aria-live="polite" aria-hidden="true">
+    <p class="cat-chat-title" id="catChatTitle">呆呆猫小助理</p>
+    <div class="cat-chat-row">
+      <span class="cat-chat-avatar" aria-hidden="true">呆</span>
+      <p class="cat-chat-msg" id="catChatText"></p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./script.js"></script>
+</body>
+
+</html>

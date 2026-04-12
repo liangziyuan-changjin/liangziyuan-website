@@ -1,0 +1,37 @@
+{
+  "长今富豪集团 唯一继承人": {
+    "title": "长今富豪集团 唯一继承人",
+    "description": "既然生来就是自己的豪门，\n那底气和温柔，\n我当然全都要。\n不服？憋着。",
+    "image": "./assets/images/home-hero/jichengren.png"
+  },
+  "库里南车主预备役": {
+    "title": "库里南车主预备役",
+    "description": "车在梦想清单里，\n心在旷野地平线。\n一边清醒搬砖，一边野蛮生长，\n库里南迟早得写我的名。",
+    "image": "./assets/images/home-hero/kulinan.png"
+  },
+  "产品捣蛋鬼 × 未来女总裁": {
+    "title": "产品捣蛋鬼 × 未来女总裁",
+    "description": "脑洞是用来撒野的，\n逻辑是用来填坑的。\n在产品世界里横冲直撞，\n我就是那个最贵的变量。",
+    "image": "./assets/images/home-hero/daodangui.png"
+  },
+  "95 摩羯 INFJ": {
+    "title": "95 摩羯 INFJ",
+    "description": "摩羯的壳，INFJ 的魂。\n清醒地看着世界发疯，\n慢热是为了过滤，\n那些没意思的灵魂。",
+    "image": "./assets/images/home-hero/qita.png"
+  },
+  "自由追光者": {
+    "title": "自由追光者",
+    "description": "被城市围剿，\n但在山野突围。\n不当谁的附庸，\n我只去有风的地方撒欢。",
+    "image": "./assets/images/present/infj.png"
+  },
+  "清醒小甜妹": {
+    "title": "清醒小甜妹",
+    "description": "外表是奶香马卡龙，\n内核是冷萃冰美式。\n可以陪你可爱，\n但千万别想教我做事。",
+    "image": "./assets/images/present/tianxin.png"
+  },
+  "请我喝奶茶吗": {
+    "title": "请我喝奶茶吗",
+    "description": "废话少说，奶茶续命。\n你要是带上全糖去冰，\n咱们说不定，\n还能再聊五分钟。",
+    "image": "./assets/images/home-hero/naicha.png"
+  }
+}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>情绪发泄气 | 梁紫原</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./rant.css" />
+  </head>
+  <body>
+    <main class="rant-page">
+      <a class="back-link" href="./index.html">← 回到主页</a>
+      <section class="rant-card">
+        <h1>情绪发泄气</h1>
+        <p>这是一个本地吐槽池。内容只保存在你当前浏览器，不会上传服务器。</p>
+        <form id="rantForm" class="rant-form">
+          <input id="rantAlias" type="text" maxlength="20" placeholder="你的代号（可选）" />
+          <textarea
+            id="rantText"
+            maxlength="240"
+            rows="4"
+            placeholder="把今天想吐槽的话写下来..."
+            required
+          ></textarea>
+          <div class="actions">
+            <button type="submit">丢进吐槽池</button>
+            <button type="button" id="clearRantsBtn">清空本地吐槽</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="rant-list-card">
+        <h2>吐槽记录</h2>
+        <ul id="rantList" class="rant-list"></ul>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./rant.js"></script>
+  </body>
+</html>
