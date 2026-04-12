@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="./style.css" />
 </head>
@@ -28,17 +28,15 @@
       <a href="#present" class="nav-link">现在的我</a>
       <a href="#future" class="nav-link">未来的我</a>
       <a href="#easter-egg" class="nav-link">彩蛋</a>
-      <button class="nav-link nav-link-btn" id="resumeEntryBtn" type="button">看看我的简历吗</button>
+      <button class="nav-link nav-link-btn" id="resumeEntryBtn" type="button">👀我的简历😂</button>
     </nav>
     <div class="music-tools">
-      <button class="music-btn" id="musicBtn" type="button" aria-label="播放背景音乐">
-        ♫ BGM
-      </button>
       <label class="track-switch" for="trackSelect">
         <span>曲目</span>
         <select id="trackSelect" aria-label="选择背景音乐">
-          <option value="./assets/music/清音 - 去有风的地方.mp3">去有风的地方</option>
           <option value="./assets/music/很美味 - 不灵不灵.mp3">不灵不灵</option>
+          <option value="./assets/music/清音 - 去有风的地方.mp3">去有风的地方</option>
+          <option value="./assets/music/常石磊 - 我我.mp3">我我</option>
         </select>
       </label>
     </div>
@@ -64,7 +62,7 @@
         <div class="home-copy">
           <p class="hero-title hero-highlight">世界忙着按部就班，我忙着在云端撒野</p>
           <h1 class="name-main">我是「梁紫原」</h1>
-          <p class="self-intro mist-stagger" data-text="从一张白纸，长成了在产品世界里撒野的小公主" data-char-delay="0.14"></p>
+          <p class="self-intro mist-stagger" data-text="从一张白纸，长成了在产品世界里慢吞吞的“小长今”" data-char-delay="0.14"></p>
           <p class="narration">
             我总是在逻辑与自由之间反复横跳，度过每个春夏秋冬。
           </p>
@@ -127,13 +125,12 @@
           <h3>成长轨迹</h3>
           <p class="journey-tip">从按部就班，到一步步走向独立的职业世界。</p>
           <div class="journey-track" id="pastJourneyTrack"></div>
-          <p class="journey-maintain">内容维护文件：content/past-journey.json（可维护字段：yearMark / sideSkill / sideInsight / sideResult）</p>
         </section>
 
         <section class="past-project-entry reveal" aria-label="代表项目入口">
           <h3>代表项目</h3>
-          <p>项目内容来自 <code>content/past.md</code> 的“<code>## 代表项目（可选）</code>”章节。</p>
-          <a class="project-entry-btn" href="./past-projects.html">想了解更多我的项目</a>
+          <p>我好像没有什么“代表作”～此区域维修，迭代更新中。</p>
+          <button class="project-entry-btn" id="projectEntryBtn" type="button">轻点一下看看</button>
         </section>
       </div>
     </section>
@@ -165,8 +162,8 @@
         <div class="present-heading-row reveal">
           <h2>现在的我</h2>
           <aside class="present-whispers" aria-label="现在的我副文案">
-            <p class="whisper-line">甜酷、随性、保持呼吸感</p>
-            <p class="whisper-line">生活和工作，都按自己的节奏来</p>
+            <p class="whisper-line">e签宝ePaaS模板产品经理：负责文件模板和流程模板</p>
+            <p class="whisper-line">工作是真的一点也不开心，所以我选择好好生活：甜酷、随性、保持呼吸感</p>
           </aside>
         </div>
 
@@ -174,16 +171,20 @@
           <div class="present-top-cards">
             <article class="present-horizontal-card present-state-card">
               <h3>我的状态</h3>
-              <p class="preline">白天在需求风暴里对线，晚上在情绪边缘蹦迪。
-我可以温柔，但今天真的不想当懂事大人。
-该扛的我会扛，不服憋着。</p>
+              <ul class="present-line-list" aria-label="我的状态描述">
+                <li>白天在需求风暴里对线，晚上在情绪边缘蹦迪。</li>
+                <li>我可以温柔，但今天真的不想当懂事大人。</li>
+                <li>该扛的我会扛，不服憋着。</li>
+              </ul>
             </article>
 
             <article class="present-horizontal-card present-personality-card">
               <h3>我的个性</h3>
-              <p class="preline">外表是奶香马卡龙，内核是冷萃冰美式。
-逻辑在线，脾气有棱角，爱美也爱赢。
-能把混乱理成路，也能把路走成舞台。</p>
+              <ul class="present-line-list" aria-label="我的个性描述">
+                <li>外表是奶香马卡龙，内核是冷萃冰美式。</li>
+                <li>逻辑在线，脾气有棱角，爱美也爱赢。</li>
+                <li>能把混乱理成路，也能把路走成舞台。</li>
+              </ul>
             </article>
           </div>
 
@@ -195,9 +196,25 @@
           <article class="present-life-social">
             <div class="present-life-copy">
               <h3>我的生活</h3>
-              <p class="preline">我的续命公式：冷萃冰美式 + 奶茶续命 + 深夜散步。
-拍照、唱歌、city walk，都是我给灵魂充电的方式。
-如果今天有风和晚霞，我就原地复活。</p>
+              <ul class="life-story-list" aria-label="我的生活日常">
+                <li>冷萃冰美式 + 奶茶双拼，今天也能满电开工。</li>
+                <li>拍照、唱歌、city walk 三件套，是我固定快乐来源。</li>
+                <li>忙完先发呆十分钟，再听歌看云，把脑袋慢慢放空。</li>
+                <li>周末会去探店或散步，让普通日子也有一点小惊喜。</li>
+                <li>我会把当天的小片段存进相册，回看时又被自己治愈。</li>
+                <li>香香洗衣液、干净床单和热奶茶，是我的安定仪式感。</li>
+                <li>和朋友聊天、和自己独处，都能把心情重新充满电。</li>
+                <li>只要今天有风和晚霞出现，我就会立刻满血复活。</li>
+              </ul>
+              <div class="life-status-box" aria-label="今日生活状态">
+                <p class="life-status-title">今日生活状态</p>
+                <div class="life-status-pills" role="group" aria-label="切换生活状态">
+                  <button class="life-status-pill active" type="button" data-life-status="onroad" aria-pressed="true">在路上</button>
+                  <button class="life-status-pill" type="button" data-life-status="glowing" aria-pressed="false">在发光</button>
+                  <button class="life-status-pill" type="button" data-life-status="charging" aria-pressed="false">在充电</button>
+                </div>
+                <p class="life-status-note" id="lifeStatusNote">在路上：慢一点没关系，按自己的节奏走就很好。</p>
+              </div>
             </div>
 
             <div class="social-phone-grid">
@@ -253,14 +270,18 @@
         <div class="future-heading-row reveal">
           <h2>未来的我</h2>
           <aside class="future-whispers" aria-label="未来的我副文案">
-            <p class="whisper-line">我不想上班了</p>
-            <p class="whisper-line">我想过简单、自由、快乐、轻松的生活</p>
+            <p class="whisper-line">未来的我真的不想上班了</p>
+            <p class="whisper-line">我想过简单、自由、快乐、轻松的生活，想自驾环游中国</p>
           </aside>
         </div>
         <section class="future-stage reveal" aria-label="未来主视觉">
           <figure class="future-hero">
             <img src="./assets/images/future/weilai.png" alt="未来的我，拥抱自由" loading="lazy" decoding="async" />
-            <figcaption>拥抱自由</figcaption>
+            <div class="future-motion-overlay" aria-hidden="true">
+              <span class="hair-wisp hair-wisp-a"></span>
+              <span class="hair-wisp hair-wisp-b"></span>
+              <span class="hair-wisp hair-wisp-c"></span>
+            </div>
 
             <div class="future-petal-layer" aria-hidden="true">
               <span class="petal sakura" style="--x: 4%; --dur: 11.4s; --delay: -2.2s; --drift: 18px;"></span>
@@ -356,8 +377,8 @@
             </section>
 
             <section class="rant-zone game-zone reveal" aria-label="留言吐槽池">
-              <h3>留言吐槽池（本地版）</h3>
-              <p>把烦恼丢进池子，轻一点、松一点。内容仅保存在你自己的浏览器。</p>
+              <h3>留言吐槽池（本地fake版）</h3>
+              <p>把烦恼丢进池子里吧，反正内容也不会保存下来～</p>
               <form id="rantForm" class="rant-form">
                 <input id="rantAlias" type="text" maxlength="20" placeholder="你的代号（可选）" />
                 <textarea id="rantText" maxlength="240" rows="3" placeholder="把今天想吐槽的话写下来..." required></textarea>
@@ -379,7 +400,7 @@
   <footer class="site-footer">
     <div class="site-footer-inner">
       <p>© 2026 梁紫原 · liangziyuan.me</p>
-      <p>联系方式：<a href="mailto:lzyliangzi@gmail.com">lzyliangzi@gmail.com</a> · 谢谢你来我的小世界。</p>
+      <p>联系方式：<a href="mailto:lzyliangzi@gmail.com">lzyliangzi@gmail.com</a> · <a href="tel:18978819825">18978819825</a> · 谢谢你来我的小世界。</p>
     </div>
   </footer>
 
@@ -395,7 +416,6 @@
           <p id="tagCardDesc">标签介绍加载中...</p>
         </div>
       </article>
-      <p class="tag-maintain">内容维护文件：content/tag-cards.json</p>
     </div>
   </div>
 
@@ -424,7 +444,7 @@
     <div class="cat-friend-inner">
       <img src="./assets/images/home-cat/daidaizuobian.png" alt="左侧呆呆猫，在线陪逛中" loading="lazy" decoding="async" />
     </div>
-    <button class="cat-note" type="button">呆呆在线陪逛中</button>
+    <button class="cat-note cat-note-left" type="button">呆呆在线陪逛中</button>
   </div>
 
   <div class="cat-friend cat-friend-right" id="catFriendRight" data-cat-toast="呆呆猫小助理：点点我，摸摸我。" aria-live="polite">
@@ -442,8 +462,13 @@
     </button>
   </div>
 
+  <button class="music-float-btn" id="musicFloatBtn" type="button" aria-label="播放背景音乐" aria-pressed="false">
+    <span class="music-float-disc" aria-hidden="true">♫</span>
+    <span class="music-float-text" id="musicFloatText">点我播放</span>
+  </button>
+
   <audio id="bgm" preload="metadata" autoplay loop>
-    <source src="./assets/music/清音 - 去有风的地方.mp3" type="audio/mpeg" />
+    <source src="./assets/music/很美味 - 不灵不灵.mp3" type="audio/mpeg" />
   </audio>
 
   <div class="cat-chat-pop" id="catChatPop" aria-live="polite" aria-hidden="true">
