@@ -90,6 +90,20 @@ textarea:focus-visible {
   animation: floatUp linear infinite;
 }
 
+/* Keep first paint smooth by briefly pausing high-frequency decorative motion. */
+body.startup-lite .dust,
+body.startup-lite .home-cloud-track,
+body.startup-lite .name-main::before,
+body.startup-lite .name-main::after,
+body.startup-lite .chip-guidance,
+body.startup-lite .chip-tag,
+body.startup-lite .track-right,
+body.startup-lite .track-left,
+body.startup-lite .future-danmu,
+body.startup-lite .future-hero img {
+  animation-play-state: paused !important;
+}
+
 @keyframes floatUp {
   from {
     transform: translateY(20px);

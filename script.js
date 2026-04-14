@@ -70,6 +70,8 @@ let presentLikeTipNode = null;
 const imageWarmPromises = new Map();
 const imageWarmDone = new Set();
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const STARTUP_LIGHT_MODE_CLASS = "startup-lite";
+const STARTUP_LIGHT_MODE_MS = 1200;
 const AUTOPLAY_GUIDE_TOAST = "欢迎来到我的主页～点击任意位置开始边听音乐边了解我吧～";
 const CAT_CHAT_MESSAGES = {
   catFriendLeft: {
@@ -95,12 +97,13 @@ const blindboxSeed = [
   "你拆到了一封未来信：谢谢你还在坚持发光。"
 ];
 let blindboxPool = [...blindboxSeed];
+let deferredEnhancementsBooted = false;
+let navSyncRafId = 0;
 const heroImageCandidates = [
-  { src: "./assets/images/home-hero/day-girl.jpg", alt: "我的奶茶大头照" },
-  { src: "./assets/images/home-hero/naichazhutu1.png", alt: "奶茶主题写真 1" },
-  { src: "./assets/images/home-hero/haichazhutu1.png", alt: "奶茶主题写真 1" },
-  { src: "./assets/images/home-hero/naichazhutu2.png", alt: "奶茶主题写真 2" },
-  { src: "./assets/images/home-hero/naichazhutu3.png", alt: "奶茶主题写真 3" }
+  { src: "./assets/images/home-hero/day-girl.webp", alt: "我的奶茶大头照" },
+  { src: "./assets/images/home-hero/haichazhutu1.webp", alt: "奶茶主题写真 1" },
+  { src: "./assets/images/home-hero/naichazhutu2.webp", alt: "奶茶主题写真 2" },
+  { src: "./assets/images/home-hero/naichazhutu3.jpg", alt: "奶茶主题写真 3" }
 ];
 const DEFAULT_MUSIC_LYRICS = [
   "去有风的地方，找回心里的轻松",
@@ -110,19 +113,19 @@ const DEFAULT_MUSIC_LYRICS = [
   "生活有起伏，但你一直在发光"
 ];
 const LIFE_STATUS_COPY = {
-  onroad: "在路上：慢一点没关系，按自己的节奏走就很好。",
-  glowing: "在发光：把灵感落地成行动，认真生活本身就很耀眼。",
-  charging: "在充电：给自己一点留白，喝杯奶茶也算认真恢复元气。"
+  onroad: "在路上：慢一点没关系，按自己的节奏走就很好",
+  glowing: "在发光：把灵感落地成行动，认真生活本身就很耀眼",
+  charging: "在充电：给自己一点留白，喝杯奶茶也算认真恢复元气"
 };
 const PAST_JOURNEY_FALLBACK = [
   {
     title: "成长",
     meta: "18 岁之前",
     description: "南宁市星湖小学到南宁三中，按时长大，也收获了至今仍在身边的朋友。",
-    image: "./assets/images/past-journey/growth.jpg",
+    image: "./assets/images/past-journey/growup.webp",
     cloudTitle: "成长彩蛋",
     cloudText: "那些看似普通的校园时光，悄悄铺垫了我后来面对世界的底气。",
-    cloudImage: "./assets/images/past-journey/growth.jpg",
+    cloudImage: "./assets/images/past-journey/growup.webp",
     yearMark: "成长",
     sideSkill: "技能：学习习惯与自律建立",
     sideInsight: "感悟：在被爱中慢慢长大",
@@ -132,10 +135,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "本科求学",
     meta: "2013 - 2017 | 天津理工大学",
     description: "信息管理与信息系统专业，完成创新创业项目并论文发表、申请软著。",
-    image: "./assets/images/past-journey/undergraduate.png",
+    image: "./assets/images/past-journey/dushu.webp",
     cloudTitle: "本科彩蛋",
     cloudText: "课堂之外，我也在不断试错和表达，慢慢找到“做产品”的直觉。",
-    cloudImage: "./assets/images/past-journey/undergraduate.png",
+    cloudImage: "./assets/images/past-journey/dushu.webp",
     yearMark: "2013",
     sideSkill: "技能：系统思维与需求分析",
     sideInsight: "感悟：做产品要从真实问题出发",
@@ -145,10 +148,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "Gap 一年",
     meta: "2017 - 2018",
     description: "考研二战，同时参与新媒体运营实习，公众号内容最高阅读量 10w+。",
-    image: "./assets/images/past-journey/gap-year.png",
+    image: "./assets/images/past-journey/ziyou.webp",
     cloudTitle: "Gap 彩蛋",
     cloudText: "最迷茫的一年，反而练出了我的韧性，也让我学会在不确定里前进。",
-    cloudImage: "./assets/images/past-journey/gap-year.png",
+    cloudImage: "./assets/images/past-journey/ziyou.webp",
     yearMark: "2017",
     sideSkill: "技能：内容运营与用户洞察",
     sideInsight: "感悟：迷茫期也能积累硬实力",
@@ -158,10 +161,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "研究生求学",
     meta: "2018 - 2021 | 广西大学",
     description: "主攻市场营销与企业诊断，输出价值 20w 的组织管理与营销方案。",
-    image: "./assets/images/past-journey/master.png",
+    image: "./assets/images/past-journey/shuoshi.webp",
     cloudTitle: "研究生彩蛋",
     cloudText: "调研和论文训练，让我开始习惯“用事实和结构说话”。",
-    cloudImage: "./assets/images/past-journey/master.png",
+    cloudImage: "./assets/images/past-journey/shuoshi.webp",
     yearMark: "2018",
     sideSkill: "技能：调研、诊断与结构化表达",
     sideInsight: "感悟：事实和结构比情绪更有说服力",
@@ -171,10 +174,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "第一份工作（白月光）",
     meta: "2021.07 - 2023.11 | 北森云计算",
     description: "负责 PaaS 元数据能力与签署升级，推动 2000+ 客户平滑迁移。",
-    image: "./assets/images/past-journey/first-job.jpg",
+    image: "./assets/images/past-journey/first-job.webp",
     cloudTitle: "第一份工作彩蛋",
     cloudText: "第一次被真实业务“打磨”，也第一次感受到产品改变组织的力量。",
-    cloudImage: "./assets/images/past-journey/first-job.jpg",
+    cloudImage: "./assets/images/past-journey/first-job.webp",
     yearMark: "2021",
     sideSkill: "技能：平台化设计与复杂场景抽象",
     sideInsight: "感悟：好产品是业务与体验的平衡",
@@ -184,10 +187,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "第二份工作（进化）",
     meta: "2024.03 - 至今 | e签宝",
     description: "从 0 到 1 打造低代码核心能力，同时建设 ePaaS 文件模板底座。",
-    image: "./assets/images/past-journey/second-job.png",
+    image: "./assets/images/past-journey/hangzhou.webp",
     cloudTitle: "第二份工作彩蛋",
     cloudText: "从“做功能”走向“搭系统”，我开始更清楚自己想成为怎样的产品人。",
-    cloudImage: "./assets/images/past-journey/second-job.png",
+    cloudImage: "./assets/images/past-journey/hangzhou.webp",
     yearMark: "2024",
     sideSkill: "技能：0-1 产品搭建与平台能力沉淀",
     sideInsight: "感悟：从功能思维走向系统思维",
@@ -198,7 +201,7 @@ const DEFAULT_TAG_CARD_MAP = {
   "长今富豪集团 唯一继承人": {
     title: "长今富豪集团 唯一继承人",
     description: "主打一个底气在线。遇事先稳住，再把排面和温柔都给到位。",
-    image: "./assets/images/home-hero/night-couple.png"
+    image: "./assets/images/home-hero/night-couple.jpg"
   },
   "库里南车主预备役": {
     title: "库里南车主预备役",
@@ -208,12 +211,12 @@ const DEFAULT_TAG_CARD_MAP = {
   "产品捣蛋鬼 × 未来女总裁": {
     title: "产品捣蛋鬼 × 未来女总裁",
     description: "一边拆问题，一边搭系统。把天马行空落成可交付，是我最上头的事。",
-    image: "./assets/images/home-hero/微信图片_20260412120634_62_154.png"
+    image: "./assets/images/home-hero/微信图片_20260412120634_62_154.webp"
   },
   "95 摩羯 INFJ": {
     title: "95 摩羯 INFJ",
     description: "外冷内热，理想和现实都不放手。温柔有锋芒，慢热但有力量。",
-    image: "./assets/images/home-hero/day-girl.jpg"
+    image: "./assets/images/home-hero/day-girl.webp"
   },
   自由追光者: {
     title: "自由追光者",
@@ -228,7 +231,7 @@ const DEFAULT_TAG_CARD_MAP = {
   "请我喝奶茶吗": {
     title: "请我喝奶茶吗",
     description: "快乐很简单，一杯奶茶就能续命。欢迎随时发起投喂邀请。",
-    image: "./assets/images/home-hero/day-girl.jpg"
+    image: "./assets/images/home-hero/day-girl.webp"
   }
 };
 let tagCardMap = { ...DEFAULT_TAG_CARD_MAP };
@@ -383,6 +386,15 @@ function runWhenIdle(task, timeout = 1600) {
   window.setTimeout(task, 260);
 }
 
+function enableStartupLightMode() {
+  const body = document.body;
+  if (!body) return;
+  body.classList.add(STARTUP_LIGHT_MODE_CLASS);
+  window.setTimeout(() => {
+    body.classList.remove(STARTUP_LIGHT_MODE_CLASS);
+  }, STARTUP_LIGHT_MODE_MS);
+}
+
 function warmImageAsset(src, priority = "low") {
   const normalized = typeof src === "string" ? src.trim() : "";
   if (!normalized) return Promise.resolve(false);
@@ -436,23 +448,31 @@ function warmImageListInIdle(sources, options = {}) {
 }
 
 function warmTagCardImagesInIdle() {
-  const fallbackImage = "./assets/images/home-hero/day-girl.jpg";
+  const fallbackImage = "./assets/images/home-hero/day-girl.webp";
   const images = Object.values(tagCardMap)
     .map((item) => (item && typeof item === "object" ? item.image : ""))
     .filter(Boolean);
-  warmImageListInIdle([fallbackImage, ...images], { priority: "low", interval: 130 });
+  const uniqueImages = [...new Set([fallbackImage, ...images])];
+  const primary = uniqueImages.slice(0, 4);
+  const rest = uniqueImages.slice(4);
+  warmImageListInIdle(primary, { priority: "high", interval: 80 });
+  warmImageListInIdle(rest, { priority: "low", interval: 130 });
 }
 
 function warmPastJourneyImagesInIdle() {
   if (pastJourneyItems.length === 0) return;
   const images = pastJourneyItems.flatMap((item) => [item.image, item.cloudImage]).filter(Boolean);
-  warmImageListInIdle(images, { priority: "low", interval: 140 });
+  const uniqueImages = [...new Set(images)];
+  const primary = uniqueImages.slice(0, 6);
+  const rest = uniqueImages.slice(6);
+  warmImageListInIdle(primary, { priority: "high", interval: 90 });
+  warmImageListInIdle(rest, { priority: "low", interval: 140 });
 }
 
 async function loadTagCards() {
   warmTagCardImagesInIdle();
   try {
-    const response = await fetch("./content/tag-cards.json", { cache: "no-store" });
+    const response = await fetch("./content/tag-cards.json", { cache: "force-cache" });
     if (!response.ok) return;
     const remoteMap = await response.json();
     mergeTagCardMap(remoteMap);
@@ -477,6 +497,14 @@ function setActiveNav() {
     } else {
       link.removeAttribute("aria-current");
     }
+  });
+}
+
+function scheduleActiveNavSync() {
+  if (navSyncRafId) return;
+  navSyncRafId = window.requestAnimationFrame(() => {
+    navSyncRafId = 0;
+    setActiveNav();
   });
 }
 
@@ -563,7 +591,7 @@ function renderMusicLyrics(lines) {
 async function initMusicLyrics() {
   renderMusicLyrics(DEFAULT_MUSIC_LYRICS);
   try {
-    const response = await fetch("./content/music-lyrics.json", { cache: "no-store" });
+    const response = await fetch("./content/music-lyrics.json", { cache: "force-cache" });
     if (!response.ok) return;
     const remoteData = await response.json();
     const remoteLyrics = Array.isArray(remoteData) ? remoteData : remoteData?.lyrics;
@@ -664,9 +692,9 @@ function createPresentStripCard(src, index) {
   const img = document.createElement("img");
   img.src = src;
   img.alt = `现在的我横向影像 ${index + 1}`;
-  img.loading = "lazy";
+  img.loading = index < 2 ? "eager" : "lazy";
   img.decoding = "async";
-  if ("fetchPriority" in img) img.fetchPriority = "low";
+  if ("fetchPriority" in img) img.fetchPriority = index < 2 ? "high" : "low";
   img.addEventListener("error", () => card.remove());
 
   card.appendChild(img);
@@ -693,11 +721,17 @@ function renderPresentCarouselRows() {
     const track = document.createElement("div");
     track.className = `present-row-track ${className}`;
 
-    for (let loop = 0; loop < 2; loop += 1) {
+    // First paint: only render one loop to avoid burst-loading too many images.
+    list.forEach((src, idx) => {
+      track.appendChild(createPresentStripCard(src, idx));
+    });
+
+    // Fill the second loop during idle time to keep marquee seamless.
+    runWhenIdle(() => {
       list.forEach((src, idx) => {
         track.appendChild(createPresentStripCard(src, idx));
       });
-    }
+    }, 1500);
 
     rowNode.appendChild(track);
   };
@@ -904,11 +938,11 @@ function renderPastJourney(items) {
     const img = document.createElement("img");
     img.src = item.image;
     img.alt = `${item.title} 阶段配图`;
-    img.loading = "lazy";
+    img.loading = idx < 2 ? "eager" : "lazy";
     img.decoding = "async";
-    if ("fetchPriority" in img) img.fetchPriority = "low";
+    if ("fetchPriority" in img) img.fetchPriority = idx < 2 ? "high" : "low";
     img.addEventListener("error", () => {
-      img.src = "./assets/images/past-journey/growth.jpg";
+      img.src = "./assets/images/past-journey/growup.webp";
     });
     visual.appendChild(img);
 
@@ -938,9 +972,21 @@ function renderPastJourney(items) {
 async function initPastJourney() {
   if (!pastJourneyTrack) return;
   let items = [...PAST_JOURNEY_FALLBACK];
+  // Render immediately to avoid blank section while waiting for network.
+  renderPastJourney(items);
+  warmPastJourneyImagesInIdle();
+
+  const controller = typeof AbortController === "function" ? new AbortController() : null;
+  let timeoutId = null;
+  if (controller) {
+    timeoutId = window.setTimeout(() => controller.abort(), 1600);
+  }
 
   try {
-    const response = await fetch("./content/past-journey.json", { cache: "no-store" });
+    const response = await fetch("./content/past-journey.json", {
+      cache: "force-cache",
+      signal: controller ? controller.signal : undefined
+    });
     if (response.ok) {
       const remoteItems = await response.json();
       if (Array.isArray(remoteItems) && remoteItems.length > 0) {
@@ -950,10 +996,10 @@ async function initPastJourney() {
             title: item.title,
             meta: item.meta,
             description: item.description,
-            image: item.image || "./assets/images/past-journey/growth.jpg",
+            image: item.image || "./assets/images/past-journey/growup.webp",
             cloudTitle: item.cloudTitle || `${item.title} 彩蛋`,
             cloudText: item.cloudText || item.description,
-            cloudImage: item.cloudImage || item.image || "./assets/images/past-journey/growth.jpg",
+            cloudImage: item.cloudImage || item.image || "./assets/images/past-journey/growup.webp",
             yearMark: item.yearMark || inferJourneyYearMark(item.meta, item.title),
             sideSkill: item.sideSkill || "技能：待补充",
             sideInsight: item.sideInsight || "感悟：待补充",
@@ -963,8 +1009,11 @@ async function initPastJourney() {
     }
   } catch (error) {
     // Keep fallback data when content file is unavailable.
+  } finally {
+    if (timeoutId) window.clearTimeout(timeoutId);
   }
 
+  // Re-render with remote content if loaded; fallback already visible.
   renderPastJourney(items);
   warmPastJourneyImagesInIdle();
 }
@@ -979,7 +1028,7 @@ function openJourneyCloud(item) {
   if (!journeyCloudOverlay || !journeyCloudImage || !journeyCloudTitle || !journeyCloudText) return;
   const title = item.cloudTitle || `${item.title} 彩蛋`;
   const text = item.cloudText || item.description || "这一段旅程，正在继续发光。";
-  const image = item.cloudImage || item.image || "./assets/images/past-journey/growth.jpg";
+  const image = item.cloudImage || item.image || "./assets/images/past-journey/growup.webp";
 
   journeyCloudTitle.textContent = title;
   journeyCloudText.textContent = text;
@@ -989,7 +1038,7 @@ function openJourneyCloud(item) {
   journeyCloudImage.alt = `${title} 配图`;
   journeyCloudImage.onerror = () => {
     journeyCloudImage.onerror = null;
-    journeyCloudImage.src = "./assets/images/past-journey/growth.jpg";
+    journeyCloudImage.src = "./assets/images/past-journey/growup.webp";
   };
 
   journeyCloudOverlay.classList.add("show");
@@ -1026,7 +1075,7 @@ function initJourneyCardsInteraction() {
     const idx = Number(card.dataset.index);
     if (Number.isNaN(idx) || !pastJourneyItems[idx]) return;
     const item = pastJourneyItems[idx];
-    const mainImage = item.image || "./assets/images/past-journey/growth.jpg";
+    const mainImage = item.image || "./assets/images/past-journey/growup.webp";
     const cloudImage = item.cloudImage || mainImage;
     card.dataset.warmed = "1";
     warmImageAsset(mainImage, "low");
@@ -1078,6 +1127,8 @@ function initJourneyCardsInteraction() {
 
 async function playMusic(silent = false) {
   if (!bgm) return false;
+  bgm.muted = false;
+  if (bgm.volume < 0.05) bgm.volume = 0.8;
   try {
     await bgm.play();
     syncMusicControls();
@@ -1407,7 +1458,7 @@ function openTagOverlay(tagName) {
   const payload = tagCardMap[tagName] || {};
   const title = payload.title || tagName;
   const description = payload.description || "这个标签故事正在赶来路上，稍后给你补上。";
-  const fallbackImage = "./assets/images/home-hero/day-girl.jpg";
+  const fallbackImage = "./assets/images/home-hero/day-girl.webp";
   const image = payload.image || fallbackImage;
 
   tagCardTitle.textContent = title;
@@ -1438,7 +1489,7 @@ function initTagCards() {
       warmed = true;
       const tagName = chip.dataset.tag || chip.textContent.trim();
       const payload = tagCardMap[tagName] || {};
-      const image = payload.image || "./assets/images/home-hero/day-girl.jpg";
+      const image = payload.image || "./assets/images/home-hero/day-girl.webp";
       warmImageAsset(image, "high");
     };
 
@@ -1553,7 +1604,26 @@ function bindCatCompanion() {
   });
 }
 
-window.addEventListener("scroll", setActiveNav, { passive: true });
+function bootDeferredEnhancements() {
+  if (deferredEnhancementsBooted) return;
+  deferredEnhancementsBooted = true;
+  watchCodeEaster();
+  bindCatCompanion();
+  initBlindbox();
+  initRantBoard();
+  initResumeGate();
+  initChipHoverMagic();
+  initJourneyCloud();
+  initJourneyCardsInteraction();
+}
+
+function scheduleDeferredEnhancements() {
+  runWhenIdle(bootDeferredEnhancements, 1400);
+  window.setTimeout(bootDeferredEnhancements, 650);
+}
+
+window.addEventListener("scroll", scheduleActiveNavSync, { passive: true });
+window.addEventListener("resize", scheduleActiveNavSync, { passive: true });
 if (musicFloatBtn) musicFloatBtn.addEventListener("click", toggleMusic);
 if (moonBtn) moonBtn.addEventListener("click", handleEasterEgg);
 if (trackSelect) trackSelect.addEventListener("change", switchTrack);
@@ -1567,6 +1637,7 @@ if (bgm) {
   bgm.addEventListener("play", syncMusicControls);
   bgm.addEventListener("pause", syncMusicControls);
 }
+enableStartupLightMode();
 syncMusicControls();
 loadTagCards();
 buildStaggerText();
@@ -1580,15 +1651,8 @@ initFutureDanmuLayout();
 initPastJourney();
 setActiveNav();
 watchReveal();
-watchCodeEaster();
-bindCatCompanion();
-initBlindbox();
-initRantBoard();
-initResumeGate();
 initTagCards();
-initChipHoverMagic();
-initJourneyCloud();
-initJourneyCardsInteraction();
 initHomeEntrance();
 initHeroCarousel();
 setupAutoPlay();
+scheduleDeferredEnhancements();
