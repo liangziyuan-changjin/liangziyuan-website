@@ -12,6 +12,33 @@ python3 -m http.server 8080
 
 然后打开：`http://localhost:8080`
 
+## 图片压缩（后续换图/加图）
+
+本项目使用 `.webp` 作为线上图片格式。新增或替换图片后，执行以下命令：
+
+```bash
+python3 -m venv .venv_imgopt
+.venv_imgopt/bin/python -m pip install pillow
+.venv_imgopt/bin/python scripts/optimize_images.py
+```
+
+常见用法：
+
+```bash
+# 只压某个目录
+.venv_imgopt/bin/python scripts/optimize_images.py assets/images/home-hero
+
+# 只压某一张图
+.venv_imgopt/bin/python scripts/optimize_images.py assets/images/home-hero/new.png
+
+# 强制重压（即使 webp 已存在）
+.venv_imgopt/bin/python scripts/optimize_images.py --force
+```
+
+说明：
+1. 脚本会生成同名文件：`xxx.jpg.webp` 或 `xxx.png.webp`。
+2. 页面里请引用 `.webp` 路径（例如 `./assets/images/home-hero/new.png.webp`）。
+
 ## 先补齐这几项
 
 1. 把你的背景音乐文件命名为 `my-theme.mp3`，放到 `assets/music/` 目录。
