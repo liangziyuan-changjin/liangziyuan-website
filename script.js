@@ -472,7 +472,7 @@ function warmPastJourneyImagesInIdle() {
 async function loadTagCards() {
   warmTagCardImagesInIdle();
   try {
-    const response = await fetch("./content/tag-cards.json", { cache: "no-store" });
+    const response = await fetch("./content/tag-cards.json", { cache: "force-cache" });
     if (!response.ok) return;
     const remoteMap = await response.json();
     mergeTagCardMap(remoteMap);
@@ -591,7 +591,7 @@ function renderMusicLyrics(lines) {
 async function initMusicLyrics() {
   renderMusicLyrics(DEFAULT_MUSIC_LYRICS);
   try {
-    const response = await fetch("./content/music-lyrics.json", { cache: "no-store" });
+    const response = await fetch("./content/music-lyrics.json", { cache: "force-cache" });
     if (!response.ok) return;
     const remoteData = await response.json();
     const remoteLyrics = Array.isArray(remoteData) ? remoteData : remoteData?.lyrics;
@@ -692,9 +692,9 @@ function createPresentStripCard(src, index) {
   const img = document.createElement("img");
   img.src = src;
   img.alt = `现在的我横向影像 ${index + 1}`;
-  img.loading = "lazy";
+  img.loading = index < 2 ? "eager" : "lazy";
   img.decoding = "async";
-  if ("fetchPriority" in img) img.fetchPriority = "low";
+  if ("fetchPriority" in img) img.fetchPriority = index < 2 ? "high" : "low";
   img.addEventListener("error", () => card.remove());
 
   card.appendChild(img);
@@ -721,11 +721,17 @@ function renderPresentCarouselRows() {
     const track = document.createElement("div");
     track.className = `present-row-track ${className}`;
 
-    for (let loop = 0; loop < 2; loop += 1) {
+    // First paint: only render one loop to avoid burst-loading too many images.
+    list.forEach((src, idx) => {
+      track.appendChild(createPresentStripCard(src, idx));
+    });
+
+    // Fill the second loop during idle time to keep marquee seamless.
+    runWhenIdle(() => {
       list.forEach((src, idx) => {
         track.appendChild(createPresentStripCard(src, idx));
       });
-    }
+    }, 1500);
 
     rowNode.appendChild(track);
   };
@@ -966,9 +972,21 @@ function renderPastJourney(items) {
 async function initPastJourney() {
   if (!pastJourneyTrack) return;
   let items = [...PAST_JOURNEY_FALLBACK];
+  // Render immediately to avoid blank section while waiting for network.
+  renderPastJourney(items);
+  warmPastJourneyImagesInIdle();
+
+  const controller = typeof AbortController === "function" ? new AbortController() : null;
+  let timeoutId = null;
+  if (controller) {
+    timeoutId = window.setTimeout(() => controller.abort(), 1600);
+  }
 
   try {
-    const response = await fetch("./content/past-journey.json", { cache: "no-store" });
+    const response = await fetch("./content/past-journey.json", {
+      cache: "force-cache",
+      signal: controller ? controller.signal : undefined
+    });
     if (response.ok) {
       const remoteItems = await response.json();
       if (Array.isArray(remoteItems) && remoteItems.length > 0) {
@@ -991,8 +1009,11 @@ async function initPastJourney() {
     }
   } catch (error) {
     // Keep fallback data when content file is unavailable.
+  } finally {
+    if (timeoutId) window.clearTimeout(timeoutId);
   }
 
+  // Re-render with remote content if loaded; fallback already visible.
   renderPastJourney(items);
   warmPastJourneyImagesInIdle();
 }
