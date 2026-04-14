@@ -70,6 +70,8 @@ let presentLikeTipNode = null;
 const imageWarmPromises = new Map();
 const imageWarmDone = new Set();
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const STARTUP_LIGHT_MODE_CLASS = "startup-lite";
+const STARTUP_LIGHT_MODE_MS = 1200;
 const AUTOPLAY_GUIDE_TOAST = "欢迎来到我的主页～点击任意位置开始边听音乐边了解我吧～";
 const CAT_CHAT_MESSAGES = {
   catFriendLeft: {
@@ -95,11 +97,12 @@ const blindboxSeed = [
   "你拆到了一封未来信：谢谢你还在坚持发光。"
 ];
 let blindboxPool = [...blindboxSeed];
+let deferredEnhancementsBooted = false;
+let navSyncRafId = 0;
 const heroImageCandidates = [
-  { src: "./assets/images/home-hero/day-girl.jpg", alt: "我的奶茶大头照" },
-  { src: "./assets/images/home-hero/naichazhutu1.png", alt: "奶茶主题写真 1" },
-  { src: "./assets/images/home-hero/haichazhutu1.png", alt: "奶茶主题写真 1" },
-  { src: "./assets/images/home-hero/naichazhutu2.png", alt: "奶茶主题写真 2" },
+  { src: "./assets/images/home-hero/day-girl.webp", alt: "我的奶茶大头照" },
+  { src: "./assets/images/home-hero/haichazhutu1.webp", alt: "奶茶主题写真 1" },
+  { src: "./assets/images/home-hero/naichazhutu2.webp", alt: "奶茶主题写真 2" },
   { src: "./assets/images/home-hero/naichazhutu3.png", alt: "奶茶主题写真 3" }
 ];
 const DEFAULT_MUSIC_LYRICS = [
@@ -110,9 +113,9 @@ const DEFAULT_MUSIC_LYRICS = [
   "生活有起伏，但你一直在发光"
 ];
 const LIFE_STATUS_COPY = {
-  onroad: "在路上：慢一点没关系，按自己的节奏走就很好。",
-  glowing: "在发光：把灵感落地成行动，认真生活本身就很耀眼。",
-  charging: "在充电：给自己一点留白，喝杯奶茶也算认真恢复元气。"
+  onroad: "在路上：慢一点没关系，按自己的节奏走就很好",
+  glowing: "在发光：把灵感落地成行动，认真生活本身就很耀眼",
+  charging: "在充电：给自己一点留白，喝杯奶茶也算认真恢复元气"
 };
 const PAST_JOURNEY_FALLBACK = [
   {
@@ -171,10 +174,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "第一份工作（白月光）",
     meta: "2021.07 - 2023.11 | 北森云计算",
     description: "负责 PaaS 元数据能力与签署升级，推动 2000+ 客户平滑迁移。",
-    image: "./assets/images/past-journey/first-job.jpg",
+    image: "./assets/images/past-journey/first-job.webp",
     cloudTitle: "第一份工作彩蛋",
     cloudText: "第一次被真实业务“打磨”，也第一次感受到产品改变组织的力量。",
-    cloudImage: "./assets/images/past-journey/first-job.jpg",
+    cloudImage: "./assets/images/past-journey/first-job.webp",
     yearMark: "2021",
     sideSkill: "技能：平台化设计与复杂场景抽象",
     sideInsight: "感悟：好产品是业务与体验的平衡",
@@ -208,12 +211,12 @@ const DEFAULT_TAG_CARD_MAP = {
   "产品捣蛋鬼 × 未来女总裁": {
     title: "产品捣蛋鬼 × 未来女总裁",
     description: "一边拆问题，一边搭系统。把天马行空落成可交付，是我最上头的事。",
-    image: "./assets/images/home-hero/微信图片_20260412120634_62_154.png"
+    image: "./assets/images/home-hero/微信图片_20260412120634_62_154.webp"
   },
   "95 摩羯 INFJ": {
     title: "95 摩羯 INFJ",
     description: "外冷内热，理想和现实都不放手。温柔有锋芒，慢热但有力量。",
-    image: "./assets/images/home-hero/day-girl.jpg"
+    image: "./assets/images/home-hero/day-girl.webp"
   },
   自由追光者: {
     title: "自由追光者",
@@ -228,7 +231,7 @@ const DEFAULT_TAG_CARD_MAP = {
   "请我喝奶茶吗": {
     title: "请我喝奶茶吗",
     description: "快乐很简单，一杯奶茶就能续命。欢迎随时发起投喂邀请。",
-    image: "./assets/images/home-hero/day-girl.jpg"
+    image: "./assets/images/home-hero/day-girl.webp"
   }
 };
 let tagCardMap = { ...DEFAULT_TAG_CARD_MAP };
@@ -383,6 +386,15 @@ function runWhenIdle(task, timeout = 1600) {
   window.setTimeout(task, 260);
 }
 
+function enableStartupLightMode() {
+  const body = document.body;
+  if (!body) return;
+  body.classList.add(STARTUP_LIGHT_MODE_CLASS);
+  window.setTimeout(() => {
+    body.classList.remove(STARTUP_LIGHT_MODE_CLASS);
+  }, STARTUP_LIGHT_MODE_MS);
+}
+
 function warmImageAsset(src, priority = "low") {
   const normalized = typeof src === "string" ? src.trim() : "";
   if (!normalized) return Promise.resolve(false);
@@ -436,7 +448,7 @@ function warmImageListInIdle(sources, options = {}) {
 }
 
 function warmTagCardImagesInIdle() {
-  const fallbackImage = "./assets/images/home-hero/day-girl.jpg";
+  const fallbackImage = "./assets/images/home-hero/day-girl.webp";
   const images = Object.values(tagCardMap)
     .map((item) => (item && typeof item === "object" ? item.image : ""))
     .filter(Boolean);
@@ -477,6 +489,14 @@ function setActiveNav() {
     } else {
       link.removeAttribute("aria-current");
     }
+  });
+}
+
+function scheduleActiveNavSync() {
+  if (navSyncRafId) return;
+  navSyncRafId = window.requestAnimationFrame(() => {
+    navSyncRafId = 0;
+    setActiveNav();
   });
 }
 
@@ -1078,6 +1098,8 @@ function initJourneyCardsInteraction() {
 
 async function playMusic(silent = false) {
   if (!bgm) return false;
+  bgm.muted = false;
+  if (bgm.volume < 0.05) bgm.volume = 0.8;
   try {
     await bgm.play();
     syncMusicControls();
@@ -1407,7 +1429,7 @@ function openTagOverlay(tagName) {
   const payload = tagCardMap[tagName] || {};
   const title = payload.title || tagName;
   const description = payload.description || "这个标签故事正在赶来路上，稍后给你补上。";
-  const fallbackImage = "./assets/images/home-hero/day-girl.jpg";
+  const fallbackImage = "./assets/images/home-hero/day-girl.webp";
   const image = payload.image || fallbackImage;
 
   tagCardTitle.textContent = title;
@@ -1438,7 +1460,7 @@ function initTagCards() {
       warmed = true;
       const tagName = chip.dataset.tag || chip.textContent.trim();
       const payload = tagCardMap[tagName] || {};
-      const image = payload.image || "./assets/images/home-hero/day-girl.jpg";
+      const image = payload.image || "./assets/images/home-hero/day-girl.webp";
       warmImageAsset(image, "high");
     };
 
@@ -1553,7 +1575,26 @@ function bindCatCompanion() {
   });
 }
 
-window.addEventListener("scroll", setActiveNav, { passive: true });
+function bootDeferredEnhancements() {
+  if (deferredEnhancementsBooted) return;
+  deferredEnhancementsBooted = true;
+  watchCodeEaster();
+  bindCatCompanion();
+  initBlindbox();
+  initRantBoard();
+  initResumeGate();
+  initChipHoverMagic();
+  initJourneyCloud();
+  initJourneyCardsInteraction();
+}
+
+function scheduleDeferredEnhancements() {
+  runWhenIdle(bootDeferredEnhancements, 1400);
+  window.setTimeout(bootDeferredEnhancements, 650);
+}
+
+window.addEventListener("scroll", scheduleActiveNavSync, { passive: true });
+window.addEventListener("resize", scheduleActiveNavSync, { passive: true });
 if (musicFloatBtn) musicFloatBtn.addEventListener("click", toggleMusic);
 if (moonBtn) moonBtn.addEventListener("click", handleEasterEgg);
 if (trackSelect) trackSelect.addEventListener("change", switchTrack);
@@ -1567,6 +1608,7 @@ if (bgm) {
   bgm.addEventListener("play", syncMusicControls);
   bgm.addEventListener("pause", syncMusicControls);
 }
+enableStartupLightMode();
 syncMusicControls();
 loadTagCards();
 buildStaggerText();
@@ -1580,15 +1622,8 @@ initFutureDanmuLayout();
 initPastJourney();
 setActiveNav();
 watchReveal();
-watchCodeEaster();
-bindCatCompanion();
-initBlindbox();
-initRantBoard();
-initResumeGate();
 initTagCards();
-initChipHoverMagic();
-initJourneyCloud();
-initJourneyCardsInteraction();
 initHomeEntrance();
 initHeroCarousel();
 setupAutoPlay();
+scheduleDeferredEnhancements();
