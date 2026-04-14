@@ -97,14 +97,16 @@
           </figure>
           <div class="hero-mini-stack reveal" aria-label="首页小卡片">
             <figure class="mini-card mini-card-1">
-              <img src="./assets/images/home-hero/naicha.png.webp" alt="最喜欢粉色" loading="lazy" decoding="async" />
+              <img src="./assets/images/home-hero/naicha.png.webp" alt="最喜欢粉色" loading="eager" decoding="async"
+                fetchpriority="high" />
             </figure>
             <figure class="mini-card mini-card-2">
-              <img src="./assets/images/home-hero/night-couple.png.webp" alt="温柔夜晚" loading="lazy" decoding="async" />
+              <img src="./assets/images/home-hero/night-couple.png.webp" alt="温柔夜晚" loading="eager" decoding="async"
+                fetchpriority="high" />
             </figure>
             <figure class="mini-card mini-card-3">
-              <img src="./assets/images/home-hero/微信图片_20260412120634_62_154.png.webp" alt="做自己，最好看" loading="lazy"
-                decoding="async" />
+              <img src="./assets/images/home-hero/微信图片_20260412120634_62_154.png.webp" alt="做自己，最好看" loading="eager"
+                decoding="async" fetchpriority="auto" />
             </figure>
           </div>
         </div>
@@ -232,8 +234,9 @@
                     src="./assets/images/present/social-xiaohongshu.jpg.webp"
                     data-fallback="./assets/images/present/present-11.jpg.webp"
                     alt="小红书主页截图"
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
+                    fetchpriority="auto"
                   />
                 </figure>
                 <span class="phone-tip">点击查看主页</span>
@@ -253,8 +256,9 @@
                     src="./assets/images/present/social-douyin.jpg.webp"
                     data-fallback="./assets/images/present/present-12.jpg.webp"
                     alt="抖音主页截图"
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
+                    fetchpriority="auto"
                   />
                 </figure>
                 <span class="phone-tip">点击查看主页</span>

@@ -53,6 +53,8 @@ const tagCardImage = document.getElementById("tagCardImage");
 const tagCardTitle = document.getElementById("tagCardTitle");
 const tagCardDesc = document.getElementById("tagCardDesc");
 const projectEntryBtn = document.getElementById("projectEntryBtn");
+const CARD_IMAGE_SELECTOR =
+  ".hero-mini-stack img, .present-strip-card img, .social-screen-img, .journey-visual img, .future-hero img, .cat-friend-inner img";
 
 let moonClickCount = 0;
 let secretCode = "";
@@ -67,6 +69,8 @@ let pastJourneyItems = [];
 let musicHasPlayedOnce = false;
 let presentLikeBurstTimer = null;
 let presentLikeTipNode = null;
+let cardImageLoadObserver = null;
+let cardImageRefreshRaf = null;
 const imageWarmPromises = new Map();
 const imageWarmDone = new Set();
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -397,6 +401,84 @@ function warmImageAsset(src, priority = "low") {
   return pending;
 }
 
+function decorateCardImage(img) {
+  if (!(img instanceof HTMLImageElement)) return;
+  if (img.dataset.cardImageBound === "1") return;
+  img.dataset.cardImageBound = "1";
+  img.classList.add("card-image-load");
+
+  const markReady = () => {
+    img.classList.add("is-loaded");
+  };
+
+  if (img.complete && img.naturalWidth > 0) {
+    markReady();
+  }
+
+  img.addEventListener("load", markReady);
+  img.addEventListener("error", markReady);
+}
+
+function eagerLoadCardImage(img, priority = "auto") {
+  if (!(img instanceof HTMLImageElement)) return;
+  decorateCardImage(img);
+  if (img.dataset.cardImageBoosted === "1") return;
+  img.dataset.cardImageBoosted = "1";
+  img.loading = "eager";
+  if ("fetchPriority" in img) img.fetchPriority = priority;
+
+  const src = img.currentSrc || img.getAttribute("src") || "";
+  if (src) {
+    warmImageAsset(src, priority === "high" ? "high" : "low");
+  }
+}
+
+function refreshCardImageLoading() {
+  const images = [...document.querySelectorAll(CARD_IMAGE_SELECTOR)];
+  if (images.length === 0) return;
+
+  const highPriorityTop = window.innerHeight * 1.35;
+  images.forEach((img) => {
+    decorateCardImage(img);
+    const rect = img.getBoundingClientRect();
+    if (rect.top <= highPriorityTop) {
+      eagerLoadCardImage(img, "high");
+    }
+  });
+
+  if (typeof IntersectionObserver !== "function") {
+    images.forEach((img) => eagerLoadCardImage(img, "auto"));
+    return;
+  }
+
+  if (!cardImageLoadObserver) {
+    cardImageLoadObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          eagerLoadCardImage(entry.target, "auto");
+          cardImageLoadObserver.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "1200px 0px", threshold: 0.01 }
+    );
+  }
+
+  cardImageLoadObserver.disconnect();
+  images.forEach((img) => {
+    if (img.dataset.cardImageBoosted === "1") return;
+    cardImageLoadObserver.observe(img);
+  });
+}
+
+function scheduleCardImageLoadingRefresh() {
+  if (cardImageRefreshRaf) return;
+  cardImageRefreshRaf = window.requestAnimationFrame(() => {
+    cardImageRefreshRaf = null;
+    refreshCardImageLoading();
+  });
+}
+
 async function loadTagCards() {
   try {
     const response = await fetch("./content/tag-cards.json", { cache: "no-store" });
@@ -595,16 +677,16 @@ async function initHeroCarousel() {
   }, 3600);
 }
 
-function createPresentStripCard(src, index) {
+function createPresentStripCard(src, index, critical = false) {
   const card = document.createElement("figure");
   card.className = "present-strip-card";
 
   const img = document.createElement("img");
   img.src = src;
   img.alt = `现在的我横向影像 ${index + 1}`;
-  img.loading = "lazy";
+  img.loading = critical ? "eager" : "lazy";
   img.decoding = "async";
-  if ("fetchPriority" in img) img.fetchPriority = "low";
+  if ("fetchPriority" in img) img.fetchPriority = critical ? "auto" : "low";
   img.addEventListener("error", () => card.remove());
 
   card.appendChild(img);
@@ -633,7 +715,8 @@ function renderPresentCarouselRows() {
 
     for (let loop = 0; loop < 2; loop += 1) {
       list.forEach((src, idx) => {
-        track.appendChild(createPresentStripCard(src, idx));
+        const critical = loop === 0 && idx < 2;
+        track.appendChild(createPresentStripCard(src, idx, critical));
       });
     }
 
@@ -642,6 +725,7 @@ function renderPresentCarouselRows() {
 
   mountRow(presentRowTop, topList, "track-right");
   mountRow(presentRowBottom, bottomList, "track-left");
+  scheduleCardImageLoadingRefresh();
 }
 
 function initSocialScreenFallback() {
@@ -840,11 +924,12 @@ function renderPastJourney(items) {
     const visual = document.createElement("figure");
     visual.className = "journey-visual";
     const img = document.createElement("img");
+    const critical = idx < 3;
     img.src = item.image;
     img.alt = `${item.title} 阶段配图`;
-    img.loading = "lazy";
+    img.loading = critical ? "eager" : "lazy";
     img.decoding = "async";
-    if ("fetchPriority" in img) img.fetchPriority = "low";
+    if ("fetchPriority" in img) img.fetchPriority = critical ? "auto" : "low";
     img.addEventListener("error", () => {
       img.src = "./assets/images/past-journey/growth.jpg.webp";
     });
@@ -871,6 +956,8 @@ function renderPastJourney(items) {
     card.appendChild(body);
     pastJourneyTrack.appendChild(card);
   });
+
+  scheduleCardImageLoadingRefresh();
 }
 
 async function initPastJourney() {
@@ -1515,6 +1602,8 @@ initSocialScreenFallback();
 initLifeStatusSwitch();
 initFutureDanmuLayout();
 initPastJourney();
+scheduleCardImageLoadingRefresh();
+window.addEventListener("load", scheduleCardImageLoadingRefresh, { once: true });
 setActiveNav();
 watchReveal();
 watchCodeEaster();
