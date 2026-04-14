@@ -3,10 +3,10 @@ import "./present-journal.css";
 
 const PRESENT_IMAGE_COUNT = 18;
 
-// Matches existing files: /assets/images/present/present-01.jpg ... present-18.jpg
+// Matches existing files: /assets/images/present/present-01.jpg.webp ... present-18.jpg.webp
 const presentPhotos = Array.from({ length: PRESENT_IMAGE_COUNT }, (_, index) => {
   const seq = String(index + 1).padStart(2, "0");
-  return `/assets/images/present/present-${seq}.jpg`;
+  return `/assets/images/present/present-${seq}.jpg.webp`;
 });
 
 const presentTags = [

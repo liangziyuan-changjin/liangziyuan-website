@@ -96,11 +96,10 @@ const blindboxSeed = [
 ];
 let blindboxPool = [...blindboxSeed];
 const heroImageCandidates = [
-  { src: "./assets/images/home-hero/day-girl.jpg", alt: "我的奶茶大头照" },
-  { src: "./assets/images/home-hero/naichazhutu1.png", alt: "奶茶主题写真 1" },
-  { src: "./assets/images/home-hero/haichazhutu1.png", alt: "奶茶主题写真 1" },
-  { src: "./assets/images/home-hero/naichazhutu2.png", alt: "奶茶主题写真 2" },
-  { src: "./assets/images/home-hero/naichazhutu3.png", alt: "奶茶主题写真 3" }
+  { src: "./assets/images/home-hero/day-girl.jpg.webp", alt: "我的奶茶大头照" },
+  { src: "./assets/images/home-hero/haichazhutu1.png.webp", alt: "奶茶主题写真 1" },
+  { src: "./assets/images/home-hero/naichazhutu2.png.webp", alt: "奶茶主题写真 2" },
+  { src: "./assets/images/home-hero/naichazhutu3.png.webp", alt: "奶茶主题写真 3" }
 ];
 const DEFAULT_MUSIC_LYRICS = [
   "去有风的地方，找回心里的轻松",
@@ -119,10 +118,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "成长",
     meta: "18 岁之前",
     description: "南宁市星湖小学到南宁三中，按时长大，也收获了至今仍在身边的朋友。",
-    image: "./assets/images/past-journey/growth.jpg",
+    image: "./assets/images/past-journey/growth.jpg.webp",
     cloudTitle: "成长彩蛋",
     cloudText: "那些看似普通的校园时光，悄悄铺垫了我后来面对世界的底气。",
-    cloudImage: "./assets/images/past-journey/growth.jpg",
+    cloudImage: "./assets/images/past-journey/growth.jpg.webp",
     yearMark: "成长",
     sideSkill: "技能：学习习惯与自律建立",
     sideInsight: "感悟：在被爱中慢慢长大",
@@ -132,10 +131,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "本科求学",
     meta: "2013 - 2017 | 天津理工大学",
     description: "信息管理与信息系统专业，完成创新创业项目并论文发表、申请软著。",
-    image: "./assets/images/past-journey/undergraduate.png",
+    image: "./assets/images/past-journey/undergraduate.png.webp",
     cloudTitle: "本科彩蛋",
     cloudText: "课堂之外，我也在不断试错和表达，慢慢找到“做产品”的直觉。",
-    cloudImage: "./assets/images/past-journey/undergraduate.png",
+    cloudImage: "./assets/images/past-journey/undergraduate.png.webp",
     yearMark: "2013",
     sideSkill: "技能：系统思维与需求分析",
     sideInsight: "感悟：做产品要从真实问题出发",
@@ -145,10 +144,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "Gap 一年",
     meta: "2017 - 2018",
     description: "考研二战，同时参与新媒体运营实习，公众号内容最高阅读量 10w+。",
-    image: "./assets/images/past-journey/gap-year.png",
+    image: "./assets/images/past-journey/gap-year.png.webp",
     cloudTitle: "Gap 彩蛋",
     cloudText: "最迷茫的一年，反而练出了我的韧性，也让我学会在不确定里前进。",
-    cloudImage: "./assets/images/past-journey/gap-year.png",
+    cloudImage: "./assets/images/past-journey/gap-year.png.webp",
     yearMark: "2017",
     sideSkill: "技能：内容运营与用户洞察",
     sideInsight: "感悟：迷茫期也能积累硬实力",
@@ -158,10 +157,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "研究生求学",
     meta: "2018 - 2021 | 广西大学",
     description: "主攻市场营销与企业诊断，输出价值 20w 的组织管理与营销方案。",
-    image: "./assets/images/past-journey/master.png",
+    image: "./assets/images/past-journey/master.png.webp",
     cloudTitle: "研究生彩蛋",
     cloudText: "调研和论文训练，让我开始习惯“用事实和结构说话”。",
-    cloudImage: "./assets/images/past-journey/master.png",
+    cloudImage: "./assets/images/past-journey/master.png.webp",
     yearMark: "2018",
     sideSkill: "技能：调研、诊断与结构化表达",
     sideInsight: "感悟：事实和结构比情绪更有说服力",
@@ -171,10 +170,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "第一份工作（白月光）",
     meta: "2021.07 - 2023.11 | 北森云计算",
     description: "负责 PaaS 元数据能力与签署升级，推动 2000+ 客户平滑迁移。",
-    image: "./assets/images/past-journey/first-job.jpg",
+    image: "./assets/images/past-journey/first-job.jpg.webp",
     cloudTitle: "第一份工作彩蛋",
     cloudText: "第一次被真实业务“打磨”，也第一次感受到产品改变组织的力量。",
-    cloudImage: "./assets/images/past-journey/first-job.jpg",
+    cloudImage: "./assets/images/past-journey/first-job.jpg.webp",
     yearMark: "2021",
     sideSkill: "技能：平台化设计与复杂场景抽象",
     sideInsight: "感悟：好产品是业务与体验的平衡",
@@ -184,10 +183,10 @@ const PAST_JOURNEY_FALLBACK = [
     title: "第二份工作（进化）",
     meta: "2024.03 - 至今 | e签宝",
     description: "从 0 到 1 打造低代码核心能力，同时建设 ePaaS 文件模板底座。",
-    image: "./assets/images/past-journey/second-job.png",
+    image: "./assets/images/past-journey/second-job.png.webp",
     cloudTitle: "第二份工作彩蛋",
     cloudText: "从“做功能”走向“搭系统”，我开始更清楚自己想成为怎样的产品人。",
-    cloudImage: "./assets/images/past-journey/second-job.png",
+    cloudImage: "./assets/images/past-journey/second-job.png.webp",
     yearMark: "2024",
     sideSkill: "技能：0-1 产品搭建与平台能力沉淀",
     sideInsight: "感悟：从功能思维走向系统思维",
@@ -198,37 +197,37 @@ const DEFAULT_TAG_CARD_MAP = {
   "长今富豪集团 唯一继承人": {
     title: "长今富豪集团 唯一继承人",
     description: "主打一个底气在线。遇事先稳住，再把排面和温柔都给到位。",
-    image: "./assets/images/home-hero/night-couple.png"
+    image: "./assets/images/home-hero/night-couple.png.webp"
   },
   "库里南车主预备役": {
     title: "库里南车主预备役",
     description: "梦想清单里写着「豪车」也写着「自由」。把愿望变成计划，是我的日常快乐。",
-    image: "./assets/images/home-hero/night-girl.png"
+    image: "./assets/images/home-hero/night-girl.png.webp"
   },
   "产品捣蛋鬼 × 未来女总裁": {
     title: "产品捣蛋鬼 × 未来女总裁",
     description: "一边拆问题，一边搭系统。把天马行空落成可交付，是我最上头的事。",
-    image: "./assets/images/home-hero/微信图片_20260412120634_62_154.png"
+    image: "./assets/images/home-hero/微信图片_20260412120634_62_154.png.webp"
   },
   "95 摩羯 INFJ": {
     title: "95 摩羯 INFJ",
     description: "外冷内热，理想和现实都不放手。温柔有锋芒，慢热但有力量。",
-    image: "./assets/images/home-hero/day-girl.jpg"
+    image: "./assets/images/home-hero/day-girl.jpg.webp"
   },
   自由追光者: {
     title: "自由追光者",
     description: "追风、追光、追喜欢的生活感。今天也要向着更开阔的世界前进。",
-    image: "./assets/images/present/present-03.jpg"
+    image: "./assets/images/present/present-03.jpg.webp"
   },
   "清醒小甜妹": {
     title: "清醒小甜妹",
     description: "甜是表达方式，清醒是底层逻辑。既能温柔，也能果断。",
-    image: "./assets/images/present/present-08.jpg"
+    image: "./assets/images/present/present-08.jpg.webp"
   },
   "请我喝奶茶吗": {
     title: "请我喝奶茶吗",
     description: "快乐很简单，一杯奶茶就能续命。欢迎随时发起投喂邀请。",
-    image: "./assets/images/home-hero/day-girl.jpg"
+    image: "./assets/images/home-hero/day-girl.jpg.webp"
   }
 };
 let tagCardMap = { ...DEFAULT_TAG_CARD_MAP };
@@ -367,22 +366,6 @@ function mergeTagCardMap(source) {
   });
 }
 
-function shouldSkipBackgroundImageWarmup() {
-  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  if (!connection) return false;
-  if (connection.saveData) return true;
-  const effectiveType = String(connection.effectiveType || "").toLowerCase();
-  return effectiveType.includes("2g");
-}
-
-function runWhenIdle(task, timeout = 1600) {
-  if (typeof window.requestIdleCallback === "function") {
-    window.requestIdleCallback(() => task(), { timeout });
-    return;
-  }
-  window.setTimeout(task, 260);
-}
-
 function warmImageAsset(src, priority = "low") {
   const normalized = typeof src === "string" ? src.trim() : "";
   if (!normalized) return Promise.resolve(false);
@@ -414,43 +397,7 @@ function warmImageAsset(src, priority = "low") {
   return pending;
 }
 
-function warmImageListInIdle(sources, options = {}) {
-  if (!Array.isArray(sources) || sources.length === 0) return;
-  if (shouldSkipBackgroundImageWarmup()) return;
-  const priority = options.priority || "low";
-  const interval = Number.isFinite(options.interval) ? options.interval : 120;
-  const uniqueSources = [...new Set(sources.map((src) => (typeof src === "string" ? src.trim() : "")).filter(Boolean))];
-  if (uniqueSources.length === 0) return;
-
-  runWhenIdle(() => {
-    let index = 0;
-    const pump = () => {
-      if (index >= uniqueSources.length) return;
-      warmImageAsset(uniqueSources[index], priority).finally(() => {
-        index += 1;
-        window.setTimeout(pump, interval);
-      });
-    };
-    pump();
-  });
-}
-
-function warmTagCardImagesInIdle() {
-  const fallbackImage = "./assets/images/home-hero/day-girl.jpg";
-  const images = Object.values(tagCardMap)
-    .map((item) => (item && typeof item === "object" ? item.image : ""))
-    .filter(Boolean);
-  warmImageListInIdle([fallbackImage, ...images], { priority: "low", interval: 130 });
-}
-
-function warmPastJourneyImagesInIdle() {
-  if (pastJourneyItems.length === 0) return;
-  const images = pastJourneyItems.flatMap((item) => [item.image, item.cloudImage]).filter(Boolean);
-  warmImageListInIdle(images, { priority: "low", interval: 140 });
-}
-
 async function loadTagCards() {
-  warmTagCardImagesInIdle();
   try {
     const response = await fetch("./content/tag-cards.json", { cache: "no-store" });
     if (!response.ok) return;
@@ -459,7 +406,6 @@ async function loadTagCards() {
   } catch (error) {
     // Use defaults when local content file is unavailable.
   }
-  warmTagCardImagesInIdle();
 }
 
 function setActiveNav() {
@@ -573,25 +519,15 @@ async function initMusicLyrics() {
   }
 }
 
-function probeImage(src) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = src;
-  });
-}
-
 async function initHeroCarousel() {
   if (!heroMainImage || prefersReducedMotion.matches) return;
 
-  const checks = await Promise.all(heroImageCandidates.map((item) => probeImage(item.src)));
-  const usable = heroImageCandidates.filter((item, idx) => checks[idx]);
-  const deduped = usable.filter((item, idx, arr) => arr.findIndex((x) => x.src === item.src) === idx);
+  const deduped = heroImageCandidates.filter((item, idx, arr) => arr.findIndex((x) => x.src === item.src) === idx);
   const slides = deduped.length > 0 ? deduped : [heroImageCandidates[0]];
   if (slides.length <= 1) return;
   const loadedMap = new Map();
-  slides.forEach((item) => loadedMap.set(item.src, true));
+  const initialSrc = heroMainImage.getAttribute("src") || slides[0].src;
+  loadedMap.set(initialSrc, true);
 
   let currentIdx = Math.max(
     0,
@@ -603,6 +539,8 @@ async function initHeroCarousel() {
     if (loadedMap.get(nextSlide.src)) return Promise.resolve(true);
     return new Promise((resolve) => {
       const temp = new Image();
+      temp.decoding = "async";
+      if ("fetchPriority" in temp) temp.fetchPriority = "low";
       temp.onload = () => {
         loadedMap.set(nextSlide.src, true);
         resolve(true);
@@ -682,7 +620,7 @@ function renderPresentCarouselRows() {
   const visibleImageOrders = [5, 6, 7, 8, 9, 10, 11, 12];
   const sources = visibleImageOrders.map((num) => {
     const order = String(num).padStart(2, "0");
-    return `./assets/images/present/present-${order}.jpg`;
+    return `./assets/images/present/present-${order}.jpg.webp`;
   });
 
   const topList = sources.slice(0, 4);
@@ -908,7 +846,7 @@ function renderPastJourney(items) {
     img.decoding = "async";
     if ("fetchPriority" in img) img.fetchPriority = "low";
     img.addEventListener("error", () => {
-      img.src = "./assets/images/past-journey/growth.jpg";
+      img.src = "./assets/images/past-journey/growth.jpg.webp";
     });
     visual.appendChild(img);
 
@@ -950,10 +888,10 @@ async function initPastJourney() {
             title: item.title,
             meta: item.meta,
             description: item.description,
-            image: item.image || "./assets/images/past-journey/growth.jpg",
+            image: item.image || "./assets/images/past-journey/growth.jpg.webp",
             cloudTitle: item.cloudTitle || `${item.title} 彩蛋`,
             cloudText: item.cloudText || item.description,
-            cloudImage: item.cloudImage || item.image || "./assets/images/past-journey/growth.jpg",
+            cloudImage: item.cloudImage || item.image || "./assets/images/past-journey/growth.jpg.webp",
             yearMark: item.yearMark || inferJourneyYearMark(item.meta, item.title),
             sideSkill: item.sideSkill || "技能：待补充",
             sideInsight: item.sideInsight || "感悟：待补充",
@@ -966,7 +904,6 @@ async function initPastJourney() {
   }
 
   renderPastJourney(items);
-  warmPastJourneyImagesInIdle();
 }
 
 function closeJourneyCloud() {
@@ -979,7 +916,7 @@ function openJourneyCloud(item) {
   if (!journeyCloudOverlay || !journeyCloudImage || !journeyCloudTitle || !journeyCloudText) return;
   const title = item.cloudTitle || `${item.title} 彩蛋`;
   const text = item.cloudText || item.description || "这一段旅程，正在继续发光。";
-  const image = item.cloudImage || item.image || "./assets/images/past-journey/growth.jpg";
+  const image = item.cloudImage || item.image || "./assets/images/past-journey/growth.jpg.webp";
 
   journeyCloudTitle.textContent = title;
   journeyCloudText.textContent = text;
@@ -989,7 +926,7 @@ function openJourneyCloud(item) {
   journeyCloudImage.alt = `${title} 配图`;
   journeyCloudImage.onerror = () => {
     journeyCloudImage.onerror = null;
-    journeyCloudImage.src = "./assets/images/past-journey/growth.jpg";
+    journeyCloudImage.src = "./assets/images/past-journey/growth.jpg.webp";
   };
 
   journeyCloudOverlay.classList.add("show");
@@ -1026,7 +963,7 @@ function initJourneyCardsInteraction() {
     const idx = Number(card.dataset.index);
     if (Number.isNaN(idx) || !pastJourneyItems[idx]) return;
     const item = pastJourneyItems[idx];
-    const mainImage = item.image || "./assets/images/past-journey/growth.jpg";
+    const mainImage = item.image || "./assets/images/past-journey/growth.jpg.webp";
     const cloudImage = item.cloudImage || mainImage;
     card.dataset.warmed = "1";
     warmImageAsset(mainImage, "low");
@@ -1407,7 +1344,7 @@ function openTagOverlay(tagName) {
   const payload = tagCardMap[tagName] || {};
   const title = payload.title || tagName;
   const description = payload.description || "这个标签故事正在赶来路上，稍后给你补上。";
-  const fallbackImage = "./assets/images/home-hero/day-girl.jpg";
+  const fallbackImage = "./assets/images/home-hero/day-girl.jpg.webp";
   const image = payload.image || fallbackImage;
 
   tagCardTitle.textContent = title;
@@ -1438,7 +1375,7 @@ function initTagCards() {
       warmed = true;
       const tagName = chip.dataset.tag || chip.textContent.trim();
       const payload = tagCardMap[tagName] || {};
-      const image = payload.image || "./assets/images/home-hero/day-girl.jpg";
+      const image = payload.image || "./assets/images/home-hero/day-girl.jpg.webp";
       warmImageAsset(image, "high");
     };
 
