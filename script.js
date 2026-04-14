@@ -633,15 +633,11 @@ async function initHeroCarousel() {
     const ok = await ensureLoaded(nextSlide);
     if (!ok) return;
     isSwitching = true;
-    heroMainImage.classList.add("is-fading");
-    if (heroPoster) heroPoster.classList.add("is-switching");
 
     window.setTimeout(() => {
       heroMainImage.src = nextSlide.src;
       heroMainImage.alt = nextSlide.alt;
       const settle = () => {
-        heroMainImage.classList.remove("is-fading");
-        if (heroPoster) heroPoster.classList.remove("is-switching");
         window.setTimeout(() => {
           isSwitching = false;
         }, 180);
@@ -708,10 +704,10 @@ function renderPresentCarouselRows() {
   if (!presentRowTop || !presentRowBottom) return;
 
   const topList = [
-    "./assets/images/present/present-01.webp",
-    "./assets/images/present/present-02.webp",
-    "./assets/images/present/present-03.webp",
-    "./assets/images/present/present-04.webp",
+    "./assets/images/present/present-01-lite.jpg",
+    "./assets/images/present/present-02-lite.jpg",
+    "./assets/images/present/present-03-lite.jpg",
+    "./assets/images/present/present-04-lite.jpg",
     "./assets/images/present/present-05.jpg",
     "./assets/images/present/present-06.jpg"
   ];
