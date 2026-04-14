@@ -82,7 +82,7 @@
       const stack = document.getElementById("polaroidStack");
       for (let index = 0; index < 18; index += 1) {
         const seq = String(index + 1).padStart(2, "0");
-        const src = `../assets/images/present/present-${seq}.jpg.webp`;
+        const src = `../assets/images/present/present-${seq}.jpg`;
         const col = index % 6;
         const row = Math.floor(index / 6);
         const rotateBase = [-9, -5, 4, 8, -6, 6][col];

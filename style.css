@@ -1837,7 +1837,6 @@ h3 {
   flex: 0 0 clamp(184px, 22vw, 266px);
   border-radius: 12px;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(255, 247, 236, 0.9), rgba(233, 239, 255, 0.86));
   border: 1px solid rgba(255, 255, 255, 0.88);
   box-shadow: 0 8px 18px rgba(147, 134, 194, 0.2);
 }
@@ -2017,28 +2016,6 @@ h3 {
   border-radius: 12px;
   display: block;
   background: rgba(255, 255, 255, 0.22);
-}
-
-.mini-card img,
-.journey-visual img,
-.present-strip-card img,
-.phone-screen img,
-.future-hero img,
-.tag-card img,
-.cat-friend-inner img {
-  background: linear-gradient(135deg, rgba(255, 247, 236, 0.9), rgba(233, 239, 255, 0.86));
-}
-
-.card-image-load {
-  transition: opacity 0.24s ease-out;
-}
-
-.card-image-load:not(.is-loaded) {
-  opacity: 0.3;
-}
-
-.card-image-load.is-loaded {
-  opacity: 1;
 }
 
 .phone-tip {
