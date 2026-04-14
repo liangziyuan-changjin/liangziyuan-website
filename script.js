@@ -67,6 +67,7 @@ let pastJourneyItems = [];
 let musicHasPlayedOnce = false;
 let presentLikeBurstTimer = null;
 let presentLikeTipNode = null;
+let presentCarouselBooted = false;
 const imageWarmPromises = new Map();
 const imageWarmDone = new Set();
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -121,24 +122,24 @@ const PAST_JOURNEY_FALLBACK = [
   {
     title: "成长",
     meta: "18 岁之前",
-    description: "南宁市星湖小学到南宁三中，按时长大，也收获了至今仍在身边的朋友。",
-    image: "./assets/images/past-journey/growup.webp",
+    description: "我在广西南宁长大，南宁三中是我的母校，在南宁这座温暖的小城中我按时长大，收获了很多的爱和友情",
+    image: "./assets/images/past-journey/growup-opt.jpg",
     cloudTitle: "成长彩蛋",
-    cloudText: "那些看似普通的校园时光，悄悄铺垫了我后来面对世界的底气。",
-    cloudImage: "./assets/images/past-journey/growup.webp",
-    yearMark: "成长",
+    cloudText: "那些看似普通的校园时光，悄悄铺垫了我后来面对世界的底气",
+    cloudImage: "./assets/images/past-journey/growup-opt.jpg",
+    yearMark: "慢慢成长",
     sideSkill: "技能：学习习惯与自律建立",
     sideInsight: "感悟：在被爱中慢慢长大",
     sideResult: "成果：收获长期稳定的友谊"
   },
   {
-    title: "本科求学",
-    meta: "2013 - 2017 | 天津理工大学",
-    description: "信息管理与信息系统专业，完成创新创业项目并论文发表、申请软著。",
-    image: "./assets/images/past-journey/dushu.webp",
+    title: "大学本科学习",
+    meta: "2013 - 2017 | 天津理工大学 信息管理与信息系统",
+    description: "学习管理学和计算机知识，主导天津市级大学生创新创业项目，完成论文发表和软件著作，每年都拿奖学金",
+    image: "./assets/images/past-journey/dushu-opt.jpg",
     cloudTitle: "本科彩蛋",
-    cloudText: "课堂之外，我也在不断试错和表达，慢慢找到“做产品”的直觉。",
-    cloudImage: "./assets/images/past-journey/dushu.webp",
+    cloudText: "课堂之外，我也在不断试错和表达，慢慢找到“做产品”的直觉",
+    cloudImage: "./assets/images/past-journey/dushu-opt.jpg",
     yearMark: "2013",
     sideSkill: "技能：系统思维与需求分析",
     sideInsight: "感悟：做产品要从真实问题出发",
@@ -147,50 +148,50 @@ const PAST_JOURNEY_FALLBACK = [
   {
     title: "Gap 一年",
     meta: "2017 - 2018",
-    description: "考研二战，同时参与新媒体运营实习，公众号内容最高阅读量 10w+。",
-    image: "./assets/images/past-journey/ziyou.webp",
+    description: "考研二战，同时做新媒体运营实习，负责“实习僧”公众号 50+ 条内容推送，独立头条原创 5 条，最高阅读 10w+",
+    image: "./assets/images/past-journey/ziyou-opt.jpg",
     cloudTitle: "Gap 彩蛋",
-    cloudText: "最迷茫的一年，反而练出了我的韧性，也让我学会在不确定里前进。",
-    cloudImage: "./assets/images/past-journey/ziyou.webp",
+    cloudText: "最迷茫的一年，反而练出了我的韧性，也让我学会在不确定里前进",
+    cloudImage: "./assets/images/past-journey/ziyou-opt.jpg",
     yearMark: "2017",
     sideSkill: "技能：内容运营与用户洞察",
     sideInsight: "感悟：迷茫期也能积累硬实力",
     sideResult: "成果：原创内容最高阅读 10w+"
   },
   {
-    title: "研究生求学",
-    meta: "2018 - 2021 | 广西大学",
-    description: "主攻市场营销与企业诊断，输出价值 20w 的组织管理与营销方案。",
-    image: "./assets/images/past-journey/shuoshi.webp",
+    title: "研究生学习",
+    meta: "2018 - 2021 | 广西大学 企业管理",
+    description: "硕士研究方向是“价值共创”，深耕市场营销与企业诊断学。跟随导师做科研和企业调研项目，以及营销数据和流程分析，输出价值 100w 的管理与营销方案",
+    image: "./assets/images/past-journey/shuoshi-opt.jpg",
     cloudTitle: "研究生彩蛋",
-    cloudText: "调研和论文训练，让我开始习惯“用事实和结构说话”。",
-    cloudImage: "./assets/images/past-journey/shuoshi.webp",
+    cloudText: "调研和论文训练，让我开始习惯“用事实和结构说话”",
+    cloudImage: "./assets/images/past-journey/shuoshi-opt.jpg",
     yearMark: "2018",
     sideSkill: "技能：调研、诊断与结构化表达",
     sideInsight: "感悟：事实和结构比情绪更有说服力",
-    sideResult: "成果：输出价值 20w 的咨询方案"
+    sideResult: "成果：发表5篇论文，输出价值100w的咨询方案"
   },
   {
     title: "第一份工作（白月光）",
-    meta: "2021.07 - 2023.11 | 北森云计算",
-    description: "负责 PaaS 元数据能力与签署升级，推动 2000+ 客户平滑迁移。",
-    image: "./assets/images/past-journey/first-job.webp",
+    meta: "2021.07 - 2023.11 | 北京北森云计算 | PaaS 平台产品经理",
+    description: "负责 BeisenCloud 平台元数据重构，在复杂场景里实现“极简配置 + 无限扩展”；独自领航电子签署平台升级，推动 2000+ 客户平滑迁移",
+    image: "./assets/images/past-journey/diyifengongzuo-opt.jpg",
     cloudTitle: "第一份工作彩蛋",
-    cloudText: "第一次被真实业务“打磨”，也第一次感受到产品改变组织的力量。",
-    cloudImage: "./assets/images/past-journey/first-job.webp",
+    cloudText: "第一次被真实业务“打磨”，也第一次感受到产品改变组织的力量",
+    cloudImage: "./assets/images/past-journey/diyifengongzuo-opt.jpg",
     yearMark: "2021",
-    sideSkill: "技能：平台化设计与复杂场景抽象",
+    sideSkill: "技能：PaaS平台设计与复杂场景抽象",
     sideInsight: "感悟：好产品是业务与体验的平衡",
-    sideResult: "成果：签署升级覆盖 2000+ 客户迁移"
+    sideResult: "成果：支撑9大产品线的PaaS能力提升60%，带来2000w付费转化率"
   },
   {
     title: "第二份工作（进化）",
-    meta: "2024.03 - 至今 | e签宝",
-    description: "从 0 到 1 打造低代码核心能力，同时建设 ePaaS 文件模板底座。",
-    image: "./assets/images/past-journey/hangzhou.webp",
+    meta: "2024.03 - 至今 | 杭州 e签宝 | 低代码+ePaaS模板产品经理",
+    description: "从 0 到 1 设计对象页面设计器，搭建供应商管理系统与翻译工作台；同时负责 ePaaS 文件模板底座，支撑跨语言与全球化合同场景",
+    image: "./assets/images/past-journey/hangzhou-opt.jpg",
     cloudTitle: "第二份工作彩蛋",
-    cloudText: "从“做功能”走向“搭系统”，我开始更清楚自己想成为怎样的产品人。",
-    cloudImage: "./assets/images/past-journey/hangzhou.webp",
+    cloudText: "从“做功能”走向“搭系统”，我开始更清楚自己想成为怎样的产品人",
+    cloudImage: "./assets/images/past-journey/hangzhou-opt.jpg",
     yearMark: "2024",
     sideSkill: "技能：0-1 产品搭建与平台能力沉淀",
     sideInsight: "感悟：从功能思维走向系统思维",
@@ -206,7 +207,7 @@ const DEFAULT_TAG_CARD_MAP = {
   "库里南车主预备役": {
     title: "库里南车主预备役",
     description: "梦想清单里写着「豪车」也写着「自由」。把愿望变成计划，是我的日常快乐。",
-    image: "./assets/images/home-hero/night-girl.png"
+    image: "./assets/images/home-hero/kulinan.webp"
   },
   "产品捣蛋鬼 × 未来女总裁": {
     title: "产品捣蛋鬼 × 未来女总裁",
@@ -470,7 +471,6 @@ function warmPastJourneyImagesInIdle() {
 }
 
 async function loadTagCards() {
-  warmTagCardImagesInIdle();
   try {
     const response = await fetch("./content/tag-cards.json", { cache: "force-cache" });
     if (!response.ok) return;
@@ -479,7 +479,6 @@ async function loadTagCards() {
   } catch (error) {
     // Use defaults when local content file is unavailable.
   }
-  warmTagCardImagesInIdle();
 }
 
 function setActiveNav() {
@@ -601,21 +600,9 @@ async function initMusicLyrics() {
   }
 }
 
-function probeImage(src) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = src;
-  });
-}
-
 async function initHeroCarousel() {
   if (!heroMainImage || prefersReducedMotion.matches) return;
-
-  const checks = await Promise.all(heroImageCandidates.map((item) => probeImage(item.src)));
-  const usable = heroImageCandidates.filter((item, idx) => checks[idx]);
-  const deduped = usable.filter((item, idx, arr) => arr.findIndex((x) => x.src === item.src) === idx);
+  const deduped = heroImageCandidates.filter((item, idx, arr) => arr.findIndex((x) => x.src === item.src) === idx);
   const slides = deduped.length > 0 ? deduped : [heroImageCandidates[0]];
   if (slides.length <= 1) return;
   const loadedMap = new Map();
@@ -646,15 +633,11 @@ async function initHeroCarousel() {
     const ok = await ensureLoaded(nextSlide);
     if (!ok) return;
     isSwitching = true;
-    heroMainImage.classList.add("is-fading");
-    if (heroPoster) heroPoster.classList.add("is-switching");
 
     window.setTimeout(() => {
       heroMainImage.src = nextSlide.src;
       heroMainImage.alt = nextSlide.alt;
       const settle = () => {
-        heroMainImage.classList.remove("is-fading");
-        if (heroPoster) heroPoster.classList.remove("is-switching");
         window.setTimeout(() => {
           isSwitching = false;
         }, 180);
@@ -685,53 +668,70 @@ async function initHeroCarousel() {
   }, 3600);
 }
 
-function createPresentStripCard(src, index) {
+function createPresentStripCard(src, index, options = {}) {
   const card = document.createElement("figure");
   card.className = "present-strip-card";
 
   const img = document.createElement("img");
   img.src = src;
   img.alt = `现在的我横向影像 ${index + 1}`;
-  img.loading = index < 2 ? "eager" : "lazy";
+  const eager = options.eager === true;
+  img.loading = eager ? "eager" : "lazy";
   img.decoding = "async";
-  if ("fetchPriority" in img) img.fetchPriority = index < 2 ? "high" : "low";
-  img.addEventListener("error", () => card.remove());
+  if ("fetchPriority" in img) img.fetchPriority = eager ? "high" : "low";
+  img.addEventListener("error", () => {
+    if (img.dataset.fallbackApplied === "1") return;
+    img.dataset.fallbackApplied = "1";
+    img.src = "./assets/images/present/present-08.jpg";
+  });
 
   card.appendChild(img);
   return card;
 }
 
+function expandMarqueeLoopByViewport(rowNode, list) {
+  if (!Array.isArray(list) || list.length === 0) return [];
+  const rowWidth = Math.max(rowNode.clientWidth || 0, 900);
+  const estimatedCardWidth = Math.min(Math.max(rowWidth * 0.22, 184), 266) + 10;
+  const minCards = Math.max(list.length, Math.ceil((rowWidth * 1.4) / estimatedCardWidth) + 2);
+  const loops = Math.max(1, Math.ceil(minCards / list.length));
+  const expanded = [];
+  for (let i = 0; i < loops; i += 1) expanded.push(...list);
+  return expanded;
+}
+
 function renderPresentCarouselRows() {
   if (!presentRowTop || !presentRowBottom) return;
 
-  // NOTE:
-  // present-01 ~ present-04 are currently pure-black source files.
-  // Use the validated visible set to keep the first row from showing black cards.
-  const visibleImageOrders = [5, 6, 7, 8, 9, 10, 11, 12];
-  const sources = visibleImageOrders.map((num) => {
-    const order = String(num).padStart(2, "0");
-    return `./assets/images/present/present-${order}.jpg`;
-  });
+  const topList = [
+    "./assets/images/present/present-01-lite.jpg",
+    "./assets/images/present/present-02-lite.jpg",
+    "./assets/images/present/present-03-lite.jpg",
+    "./assets/images/present/present-04-lite.jpg",
+    "./assets/images/present/present-05.jpg",
+    "./assets/images/present/present-06.jpg"
+  ];
 
-  const topList = sources.slice(0, 4);
-  const bottomList = sources.slice(4, 8);
+  const bottomList = [
+    "./assets/images/present/present-07.jpg",
+    "./assets/images/present/present-08.jpg",
+    "./assets/images/present/present-09.jpg",
+    "./assets/images/present/present-10.jpg",
+    "./assets/images/present/present-11.jpg",
+    "./assets/images/present/present-12.jpg"
+  ];
 
   const mountRow = (rowNode, list, className) => {
     rowNode.innerHTML = "";
     const track = document.createElement("div");
     track.className = `present-row-track ${className}`;
 
-    // First paint: only render one loop to avoid burst-loading too many images.
-    list.forEach((src, idx) => {
-      track.appendChild(createPresentStripCard(src, idx));
+    // Ensure each loop is long enough for wide screens, then duplicate for seamless marquee.
+    const baseLoop = expandMarqueeLoopByViewport(rowNode, list);
+    const seamlessLoop = [...baseLoop, ...baseLoop];
+    seamlessLoop.forEach((src, idx) => {
+      track.appendChild(createPresentStripCard(src, idx, { eager: idx < 2 }));
     });
-
-    // Fill the second loop during idle time to keep marquee seamless.
-    runWhenIdle(() => {
-      list.forEach((src, idx) => {
-        track.appendChild(createPresentStripCard(src, idx));
-      });
-    }, 1500);
 
     rowNode.appendChild(track);
   };
@@ -743,11 +743,45 @@ function renderPresentCarouselRows() {
 function initSocialScreenFallback() {
   if (socialScreenImages.length === 0) return;
   socialScreenImages.forEach((img) => {
-    img.addEventListener("error", () => {
-      const fallback = img.dataset.fallback;
-      if (!fallback || img.src.endsWith(fallback.replace("./", ""))) return;
+    const fallback = img.dataset.fallback;
+    if (!fallback) return;
+
+    let settled = false;
+    const settle = () => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timeoutId);
+    };
+    const applyFallback = () => {
+      if (img.dataset.fallbackApplied === "1") return;
+      img.dataset.fallbackApplied = "1";
       img.src = fallback;
-    });
+    };
+
+    const timeoutId = window.setTimeout(() => {
+      if (img.complete && img.naturalWidth > 0) {
+        settle();
+        return;
+      }
+      applyFallback();
+      settle();
+    }, 2800);
+
+    img.addEventListener(
+      "load",
+      () => {
+        settle();
+      },
+      { once: true }
+    );
+    img.addEventListener(
+      "error",
+      () => {
+        applyFallback();
+        settle();
+      },
+      { once: true }
+    );
   });
 }
 
@@ -938,11 +972,12 @@ function renderPastJourney(items) {
     const img = document.createElement("img");
     img.src = item.image;
     img.alt = `${item.title} 阶段配图`;
-    img.loading = idx < 2 ? "eager" : "lazy";
+    const isPrimary = idx === 0;
+    img.loading = isPrimary ? "eager" : "lazy";
     img.decoding = "async";
-    if ("fetchPriority" in img) img.fetchPriority = idx < 2 ? "high" : "low";
+    if ("fetchPriority" in img) img.fetchPriority = isPrimary ? "high" : "low";
     img.addEventListener("error", () => {
-      img.src = "./assets/images/past-journey/growup.webp";
+      img.src = "./assets/images/past-journey/growup-opt.jpg";
     });
     visual.appendChild(img);
 
@@ -974,7 +1009,6 @@ async function initPastJourney() {
   let items = [...PAST_JOURNEY_FALLBACK];
   // Render immediately to avoid blank section while waiting for network.
   renderPastJourney(items);
-  warmPastJourneyImagesInIdle();
 
   const controller = typeof AbortController === "function" ? new AbortController() : null;
   let timeoutId = null;
@@ -996,10 +1030,10 @@ async function initPastJourney() {
             title: item.title,
             meta: item.meta,
             description: item.description,
-            image: item.image || "./assets/images/past-journey/growup.webp",
+            image: item.image || "./assets/images/past-journey/growup-opt.jpg",
             cloudTitle: item.cloudTitle || `${item.title} 彩蛋`,
             cloudText: item.cloudText || item.description,
-            cloudImage: item.cloudImage || item.image || "./assets/images/past-journey/growup.webp",
+            cloudImage: item.cloudImage || item.image || "./assets/images/past-journey/growup-opt.jpg",
             yearMark: item.yearMark || inferJourneyYearMark(item.meta, item.title),
             sideSkill: item.sideSkill || "技能：待补充",
             sideInsight: item.sideInsight || "感悟：待补充",
@@ -1015,7 +1049,6 @@ async function initPastJourney() {
 
   // Re-render with remote content if loaded; fallback already visible.
   renderPastJourney(items);
-  warmPastJourneyImagesInIdle();
 }
 
 function closeJourneyCloud() {
@@ -1028,7 +1061,7 @@ function openJourneyCloud(item) {
   if (!journeyCloudOverlay || !journeyCloudImage || !journeyCloudTitle || !journeyCloudText) return;
   const title = item.cloudTitle || `${item.title} 彩蛋`;
   const text = item.cloudText || item.description || "这一段旅程，正在继续发光。";
-  const image = item.cloudImage || item.image || "./assets/images/past-journey/growup.webp";
+  const image = item.cloudImage || item.image || "./assets/images/past-journey/growup-opt.jpg";
 
   journeyCloudTitle.textContent = title;
   journeyCloudText.textContent = text;
@@ -1038,7 +1071,7 @@ function openJourneyCloud(item) {
   journeyCloudImage.alt = `${title} 配图`;
   journeyCloudImage.onerror = () => {
     journeyCloudImage.onerror = null;
-    journeyCloudImage.src = "./assets/images/past-journey/growup.webp";
+    journeyCloudImage.src = "./assets/images/past-journey/growup-opt.jpg";
   };
 
   journeyCloudOverlay.classList.add("show");
@@ -1075,7 +1108,7 @@ function initJourneyCardsInteraction() {
     const idx = Number(card.dataset.index);
     if (Number.isNaN(idx) || !pastJourneyItems[idx]) return;
     const item = pastJourneyItems[idx];
-    const mainImage = item.image || "./assets/images/past-journey/growup.webp";
+    const mainImage = item.image || "./assets/images/past-journey/growup-opt.jpg";
     const cloudImage = item.cloudImage || mainImage;
     card.dataset.warmed = "1";
     warmImageAsset(mainImage, "low");
@@ -1123,6 +1156,33 @@ function initJourneyCardsInteraction() {
     if (!card) return;
     warmByCard(card);
   }, { passive: true });
+}
+
+function bootPresentCarouselOnce() {
+  if (presentCarouselBooted) return;
+  presentCarouselBooted = true;
+  renderPresentCarouselRows();
+  initPresentCarouselEngagement();
+}
+
+function initPresentCarouselWhenVisible() {
+  if (!presentRowTop || !presentRowBottom) return;
+  const trigger = document.getElementById("present") || presentCarouselShell;
+  if (!trigger || typeof IntersectionObserver !== "function") {
+    bootPresentCarouselOnce();
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      bootPresentCarouselOnce();
+      observer.disconnect();
+    },
+    { root: null, rootMargin: "280px 0px", threshold: 0.01 }
+  );
+
+  observer.observe(trigger);
 }
 
 async function playMusic(silent = false) {
@@ -1643,8 +1703,7 @@ loadTagCards();
 buildStaggerText();
 tuneCloudFloating();
 createDust();
-renderPresentCarouselRows();
-initPresentCarouselEngagement();
+initPresentCarouselWhenVisible();
 initSocialScreenFallback();
 initLifeStatusSwitch();
 initFutureDanmuLayout();
@@ -1653,6 +1712,8 @@ setActiveNav();
 watchReveal();
 initTagCards();
 initHomeEntrance();
-initHeroCarousel();
+runWhenIdle(() => {
+  initHeroCarousel();
+}, 2400);
 setupAutoPlay();
 scheduleDeferredEnhancements();

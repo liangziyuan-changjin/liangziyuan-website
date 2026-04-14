@@ -3,78 +3,78 @@
     "title": "成长",
     "meta": "18 岁之前",
     "description": "我在广西南宁长大，南宁三中是我的母校，在南宁这座温暖的小城中我按时长大，收获了很多的爱和友情",
-    "image": "./assets/images/past-journey/growup.webp",
+    "image": "./assets/images/past-journey/growup-opt.jpg",
     "yearMark": "慢慢成长",
     "sideSkill": "技能：学习习惯与自律建立",
     "sideInsight": "感悟：在被爱中慢慢长大",
     "sideResult": "成果：收获长期稳定的友谊",
     "cloudTitle": "成长彩蛋",
     "cloudText": "那些看似普通的校园时光，悄悄铺垫了我后来面对世界的底气",
-    "cloudImage": "./assets/images/past-journey/growup.webp"
+    "cloudImage": "./assets/images/past-journey/growup-opt.jpg"
   },
   {
     "title": "大学本科学习",
     "meta": "2013 - 2017 | 天津理工大学 信息管理与信息系统",
     "description": "学习管理学和计算机知识，主导天津市级大学生创新创业项目，完成论文发表和软件著作，每年都拿奖学金",
-    "image": "./assets/images/past-journey/dushu.webp",
+    "image": "./assets/images/past-journey/dushu-opt.jpg",
     "yearMark": "2013",
     "sideSkill": "技能：系统思维与需求分析",
     "sideInsight": "感悟：做产品要从真实问题出发",
     "sideResult": "成果：项目落地、论文发表、软著申请",
     "cloudTitle": "本科彩蛋",
     "cloudText": "课堂之外，我也在不断试错和表达，慢慢找到“做产品”的直觉",
-    "cloudImage": "./assets/images/past-journey/dushu.webp"
+    "cloudImage": "./assets/images/past-journey/dushu-opt.jpg"
   },
   {
     "title": "Gap 一年",
     "meta": "2017 - 2018",
     "description": "考研二战，同时做新媒体运营实习，负责“实习僧”公众号 50+ 条内容推送，独立头条原创 5 条，最高阅读 10w+",
-    "image": "./assets/images/past-journey/ziyou.webp",
+    "image": "./assets/images/past-journey/ziyou-opt.jpg",
     "yearMark": "2017",
     "sideSkill": "技能：内容运营与用户洞察",
     "sideInsight": "感悟：迷茫期也能积累硬实力",
     "sideResult": "成果：原创内容最高阅读 10w+",
     "cloudTitle": "Gap 彩蛋",
     "cloudText": "最迷茫的一年，反而练出了我的韧性，也让我学会在不确定里前进",
-    "cloudImage": "./assets/images/past-journey/ziyou.webp"
+    "cloudImage": "./assets/images/past-journey/ziyou-opt.jpg"
   },
   {
     "title": "研究生学习",
     "meta": "2018 - 2021 | 广西大学 企业管理",
     "description": "硕士研究方向是“价值共创”，深耕市场营销与企业诊断学。跟随导师做科研和企业调研项目，以及营销数据和流程分析，输出价值 100w 的管理与营销方案",
-    "image": "./assets/images/past-journey/shuoshi.webp",
+    "image": "./assets/images/past-journey/shuoshi-opt.jpg",
     "yearMark": "2018",
     "sideSkill": "技能：调研、诊断与结构化表达",
     "sideInsight": "感悟：事实和结构比情绪更有说服力",
     "sideResult": "成果：发表5篇论文，输出价值100w的咨询方案",
     "cloudTitle": "研究生彩蛋",
     "cloudText": "调研和论文训练，让我开始习惯“用事实和结构说话”",
-    "cloudImage": "./assets/images/past-journey/shuoshi.webp"
+    "cloudImage": "./assets/images/past-journey/shuoshi-opt.jpg"
   },
   {
     "title": "第一份工作（白月光）",
     "meta": "2021.07 - 2023.11 | 北京北森云计算 | PaaS 平台产品经理",
     "description": "负责 BeisenCloud 平台元数据重构，在复杂场景里实现“极简配置 + 无限扩展”；独自领航电子签署平台升级，推动 2000+ 客户平滑迁移",
-    "image": "./assets/images/past-journey/diyifengongzuo.webp",
+    "image": "./assets/images/past-journey/diyifengongzuo-opt.jpg",
     "yearMark": "2021",
     "sideSkill": "技能：PaaS平台设计与复杂场景抽象",
     "sideInsight": "感悟：好产品是业务与体验的平衡",
     "sideResult": "成果：支撑9大产品线的PaaS能力提升60%，带来2000w付费转化率",
     "cloudTitle": "第一份工作彩蛋",
     "cloudText": "第一次被真实业务“打磨”，也第一次感受到产品改变组织的力量",
-    "cloudImage": "./assets/images/past-journey/diyifengongzuo.webp"
+    "cloudImage": "./assets/images/past-journey/diyifengongzuo-opt.jpg"
   },
   {
     "title": "第二份工作（进化）",
     "meta": "2024.03 - 至今 | 杭州 e签宝 | 低代码+ePaaS模板产品经理",
     "description": "从 0 到 1 设计对象页面设计器，搭建供应商管理系统与翻译工作台；同时负责 ePaaS 文件模板底座，支撑跨语言与全球化合同场景",
-    "image": "./assets/images/past-journey/hangzhou.webp",
+    "image": "./assets/images/past-journey/hangzhou-opt.jpg",
     "yearMark": "2024",
     "sideSkill": "技能：0-1 产品搭建与平台能力沉淀",
     "sideInsight": "感悟：从功能思维走向系统思维",
     "sideResult": "成果：落地核心设计器与文件模板底座",
     "cloudTitle": "第二份工作彩蛋",
     "cloudText": "从“做功能”走向“搭系统”，我开始更清楚自己想成为怎样的产品人",
-    "cloudImage": "./assets/images/past-journey/hangzhou.webp"
+    "cloudImage": "./assets/images/past-journey/hangzhou-opt.jpg"
   }
 ]
