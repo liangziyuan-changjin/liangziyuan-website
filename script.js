@@ -470,7 +470,6 @@ function warmPastJourneyImagesInIdle() {
 }
 
 async function loadTagCards() {
-  warmTagCardImagesInIdle();
   try {
     const response = await fetch("./content/tag-cards.json", { cache: "force-cache" });
     if (!response.ok) return;
@@ -479,7 +478,6 @@ async function loadTagCards() {
   } catch (error) {
     // Use defaults when local content file is unavailable.
   }
-  warmTagCardImagesInIdle();
 }
 
 function setActiveNav() {
@@ -743,11 +741,45 @@ function renderPresentCarouselRows() {
 function initSocialScreenFallback() {
   if (socialScreenImages.length === 0) return;
   socialScreenImages.forEach((img) => {
-    img.addEventListener("error", () => {
-      const fallback = img.dataset.fallback;
-      if (!fallback || img.src.endsWith(fallback.replace("./", ""))) return;
+    const fallback = img.dataset.fallback;
+    if (!fallback) return;
+
+    let settled = false;
+    const settle = () => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timeoutId);
+    };
+    const applyFallback = () => {
+      if (img.dataset.fallbackApplied === "1") return;
+      img.dataset.fallbackApplied = "1";
       img.src = fallback;
-    });
+    };
+
+    const timeoutId = window.setTimeout(() => {
+      if (img.complete && img.naturalWidth > 0) {
+        settle();
+        return;
+      }
+      applyFallback();
+      settle();
+    }, 2800);
+
+    img.addEventListener(
+      "load",
+      () => {
+        settle();
+      },
+      { once: true }
+    );
+    img.addEventListener(
+      "error",
+      () => {
+        applyFallback();
+        settle();
+      },
+      { once: true }
+    );
   });
 }
 
@@ -938,9 +970,10 @@ function renderPastJourney(items) {
     const img = document.createElement("img");
     img.src = item.image;
     img.alt = `${item.title} 阶段配图`;
-    img.loading = idx < 2 ? "eager" : "lazy";
+    const isPrimary = idx === 0;
+    img.loading = isPrimary ? "eager" : "lazy";
     img.decoding = "async";
-    if ("fetchPriority" in img) img.fetchPriority = idx < 2 ? "high" : "low";
+    if ("fetchPriority" in img) img.fetchPriority = isPrimary ? "high" : "low";
     img.addEventListener("error", () => {
       img.src = "./assets/images/past-journey/growup.webp";
     });
@@ -974,7 +1007,6 @@ async function initPastJourney() {
   let items = [...PAST_JOURNEY_FALLBACK];
   // Render immediately to avoid blank section while waiting for network.
   renderPastJourney(items);
-  warmPastJourneyImagesInIdle();
 
   const controller = typeof AbortController === "function" ? new AbortController() : null;
   let timeoutId = null;
@@ -1015,7 +1047,6 @@ async function initPastJourney() {
 
   // Re-render with remote content if loaded; fallback already visible.
   renderPastJourney(items);
-  warmPastJourneyImagesInIdle();
 }
 
 function closeJourneyCloud() {
