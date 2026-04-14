@@ -672,53 +672,70 @@ async function initHeroCarousel() {
   }, 3600);
 }
 
-function createPresentStripCard(src, index) {
+function createPresentStripCard(src, index, options = {}) {
   const card = document.createElement("figure");
   card.className = "present-strip-card";
 
   const img = document.createElement("img");
   img.src = src;
   img.alt = `现在的我横向影像 ${index + 1}`;
-  img.loading = index < 2 ? "eager" : "lazy";
+  const eager = options.eager === true;
+  img.loading = eager ? "eager" : "lazy";
   img.decoding = "async";
-  if ("fetchPriority" in img) img.fetchPriority = index < 2 ? "high" : "low";
-  img.addEventListener("error", () => card.remove());
+  if ("fetchPriority" in img) img.fetchPriority = eager ? "high" : "low";
+  img.addEventListener("error", () => {
+    if (img.dataset.fallbackApplied === "1") return;
+    img.dataset.fallbackApplied = "1";
+    img.src = "./assets/images/present/present-08.jpg";
+  });
 
   card.appendChild(img);
   return card;
 }
 
+function expandMarqueeLoopByViewport(rowNode, list) {
+  if (!Array.isArray(list) || list.length === 0) return [];
+  const rowWidth = Math.max(rowNode.clientWidth || 0, 900);
+  const estimatedCardWidth = Math.min(Math.max(rowWidth * 0.22, 184), 266) + 10;
+  const minCards = Math.max(list.length, Math.ceil((rowWidth * 1.4) / estimatedCardWidth) + 2);
+  const loops = Math.max(1, Math.ceil(minCards / list.length));
+  const expanded = [];
+  for (let i = 0; i < loops; i += 1) expanded.push(...list);
+  return expanded;
+}
+
 function renderPresentCarouselRows() {
   if (!presentRowTop || !presentRowBottom) return;
 
-  // NOTE:
-  // present-01 ~ present-04 are currently pure-black source files.
-  // Use the validated visible set to keep the first row from showing black cards.
-  const visibleImageOrders = [5, 6, 7, 8, 9, 10, 11, 12];
-  const sources = visibleImageOrders.map((num) => {
-    const order = String(num).padStart(2, "0");
-    return `./assets/images/present/present-${order}.jpg`;
-  });
+  const topList = [
+    "./assets/images/present/present-01.webp",
+    "./assets/images/present/present-02.webp",
+    "./assets/images/present/present-03.webp",
+    "./assets/images/present/present-04.webp",
+    "./assets/images/present/present-05.jpg",
+    "./assets/images/present/present-06.jpg"
+  ];
 
-  const topList = sources.slice(0, 4);
-  const bottomList = sources.slice(4, 8);
+  const bottomList = [
+    "./assets/images/present/present-07.jpg",
+    "./assets/images/present/present-08.jpg",
+    "./assets/images/present/present-09.jpg",
+    "./assets/images/present/present-10.jpg",
+    "./assets/images/present/present-11.jpg",
+    "./assets/images/present/present-12.jpg"
+  ];
 
   const mountRow = (rowNode, list, className) => {
     rowNode.innerHTML = "";
     const track = document.createElement("div");
     track.className = `present-row-track ${className}`;
 
-    // First paint: only render one loop to avoid burst-loading too many images.
-    list.forEach((src, idx) => {
-      track.appendChild(createPresentStripCard(src, idx));
+    // Ensure each loop is long enough for wide screens, then duplicate for seamless marquee.
+    const baseLoop = expandMarqueeLoopByViewport(rowNode, list);
+    const seamlessLoop = [...baseLoop, ...baseLoop];
+    seamlessLoop.forEach((src, idx) => {
+      track.appendChild(createPresentStripCard(src, idx, { eager: idx < 2 }));
     });
-
-    // Fill the second loop during idle time to keep marquee seamless.
-    runWhenIdle(() => {
-      list.forEach((src, idx) => {
-        track.appendChild(createPresentStripCard(src, idx));
-      });
-    }, 1500);
 
     rowNode.appendChild(track);
   };
