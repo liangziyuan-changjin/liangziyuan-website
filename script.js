@@ -103,7 +103,7 @@ const heroImageCandidates = [
   { src: "./assets/images/home-hero/day-girl.webp", alt: "我的奶茶大头照" },
   { src: "./assets/images/home-hero/haichazhutu1.webp", alt: "奶茶主题写真 1" },
   { src: "./assets/images/home-hero/naichazhutu2.webp", alt: "奶茶主题写真 2" },
-  { src: "./assets/images/home-hero/naichazhutu3.png", alt: "奶茶主题写真 3" }
+  { src: "./assets/images/home-hero/naichazhutu3.jpg", alt: "奶茶主题写真 3" }
 ];
 const DEFAULT_MUSIC_LYRICS = [
   "去有风的地方，找回心里的轻松",
@@ -201,7 +201,7 @@ const DEFAULT_TAG_CARD_MAP = {
   "长今富豪集团 唯一继承人": {
     title: "长今富豪集团 唯一继承人",
     description: "主打一个底气在线。遇事先稳住，再把排面和温柔都给到位。",
-    image: "./assets/images/home-hero/night-couple.png"
+    image: "./assets/images/home-hero/night-couple.jpg"
   },
   "库里南车主预备役": {
     title: "库里南车主预备役",
@@ -452,13 +452,21 @@ function warmTagCardImagesInIdle() {
   const images = Object.values(tagCardMap)
     .map((item) => (item && typeof item === "object" ? item.image : ""))
     .filter(Boolean);
-  warmImageListInIdle([fallbackImage, ...images], { priority: "low", interval: 130 });
+  const uniqueImages = [...new Set([fallbackImage, ...images])];
+  const primary = uniqueImages.slice(0, 4);
+  const rest = uniqueImages.slice(4);
+  warmImageListInIdle(primary, { priority: "high", interval: 80 });
+  warmImageListInIdle(rest, { priority: "low", interval: 130 });
 }
 
 function warmPastJourneyImagesInIdle() {
   if (pastJourneyItems.length === 0) return;
   const images = pastJourneyItems.flatMap((item) => [item.image, item.cloudImage]).filter(Boolean);
-  warmImageListInIdle(images, { priority: "low", interval: 140 });
+  const uniqueImages = [...new Set(images)];
+  const primary = uniqueImages.slice(0, 6);
+  const rest = uniqueImages.slice(6);
+  warmImageListInIdle(primary, { priority: "high", interval: 90 });
+  warmImageListInIdle(rest, { priority: "low", interval: 140 });
 }
 
 async function loadTagCards() {
@@ -924,9 +932,9 @@ function renderPastJourney(items) {
     const img = document.createElement("img");
     img.src = item.image;
     img.alt = `${item.title} 阶段配图`;
-    img.loading = "lazy";
+    img.loading = idx < 2 ? "eager" : "lazy";
     img.decoding = "async";
-    if ("fetchPriority" in img) img.fetchPriority = "low";
+    if ("fetchPriority" in img) img.fetchPriority = idx < 2 ? "high" : "low";
     img.addEventListener("error", () => {
       img.src = "./assets/images/past-journey/growth.jpg";
     });
